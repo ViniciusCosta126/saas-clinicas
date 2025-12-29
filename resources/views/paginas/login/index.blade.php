@@ -6,18 +6,17 @@
         <div class="container login">
             <div class="login-card">
                 <h2>Bem Vindo</h2>
-                <p>
-                    Insira sua conta para continuar</p>
-
-                <form class="login-form">
+                <p>Insira sua conta para continuar</p>
+                <form class="login-form" method="post">
+                    @csrf
                     <div class="input-group">
                         <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="email" placeholder="Email" required>
+                        <input type="email" id="email" placeholder="Email" name="email" required>
                     </div>
 
                     <div class="input-group">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="password" placeholder="Senha" required>
+                        <input type="password" id="password" name="senha" placeholder="Senha" required>
                     </div>
 
                     <button type="submit">Entrar</button>
