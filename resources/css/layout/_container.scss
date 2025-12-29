@@ -1,0 +1,18 @@
+@use "../abstracts/variables" as *;
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding-left: $spacing-6;
+  padding-right: $spacing-6;
+  max-width: 1280px;
+
+  @include xl { max-width: 1140px; }
+  @include lg { max-width: 960px; }
+  @include md { max-width: 720px; }
+  @include sm { 
+    max-width: 100%;
+    padding-left: $spacing-4;
+    padding-right: $spacing-4;
+  }
+}
