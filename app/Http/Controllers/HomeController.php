@@ -40,7 +40,6 @@ class HomeController extends Controller
         $credentials = $request->only('email', 'senha');
 
         if (!Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['senha']])) {
-            dd("teste");
             return back()->withErrors(['email' => 'Credenciais inválidas']);
         }
 
@@ -50,5 +49,10 @@ class HomeController extends Controller
         }
 
         return redirect('/dashboard');
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/login');
     }
 }

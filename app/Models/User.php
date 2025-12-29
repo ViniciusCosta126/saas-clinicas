@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'telefone',
+        'cpf',
         'clinica_id'
     ];
 
@@ -47,7 +49,17 @@ class User extends Authenticatable
         ];
     }
 
-    public function clinica(){
+    public function clinica()
+    {
         return $this->belongsTo(Clinica::class);
+    }
+
+    public function getProfilePhotoAttribute()
+    {
+        if ($this->avatar && file_exists(public_path('storage/' . $this->avatar))) {
+            return asset('storage/' . $this->avatar);
+        }
+
+        return "https://ui-avatars.com/api/?name=" . urlencode($this->name) . "&background=f2f2f2&color=000";
     }
 }

@@ -18,10 +18,10 @@
             <i class="fa-solid fa-chevron-down user-dropdown-icon"></i>
 
             <div class="topbar-user-dropdown">
-                <a href="#"><i class="fa-regular fa-user"></i> Meu Perfil</a>
+                <a href="{{ route('meu-perfil') }}"><i class="fa-regular fa-user"></i> Meu Perfil</a>
                 <a href="#"><i class="fa-solid fa-hospital"></i> Dados da Clínica</a>
                 <hr>
-                <a href="#" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+                <a href="/logout" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
             </div>
         </div>
     </div>

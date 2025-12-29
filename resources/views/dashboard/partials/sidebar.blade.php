@@ -1,7 +1,7 @@
 <aside class="sidebar">
     <div class="sidebar-logo">SaaS Clínicas</div>
     <nav class="sidebar-nav">
-        <a href="#"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
+        <a href="/dashboard"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
 
         <a href="#"><i class="fa-solid fa-calendar-days"></i>Agenda</a>
 
