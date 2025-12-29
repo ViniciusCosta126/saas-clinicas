@@ -9,4 +9,8 @@ class HomeController extends Controller
     public function indexLogin(){
         return view('paginas.login.index');
     }
+
+    public function criarConta(){
+        return view('paginas.criar-conta.index');
+    }
 }

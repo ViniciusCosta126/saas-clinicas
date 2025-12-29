@@ -1,6 +1,12 @@
 @use "abstracts/variables";
 @use "layout/container";
 
+
+* {
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+}
+
 html,
 body,
 div,
@@ -88,8 +94,6 @@ video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: "Roboto", sans-serif;
-    box-sizing: border-box;
 }
 
 article,

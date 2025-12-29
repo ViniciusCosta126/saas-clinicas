@@ -1,17 +1,17 @@
 @use '../../abstracts/variables' as *;
 
 
-#login {
+#criar-conta {
     background-color: $color-gray;
     height: 100vh;
 
-    .login {
+    .criar-conta {
         display: flex;
         align-items: center;
         height: 100%;
         justify-content: center;
 
-        .login-card {
+        .criar-conta-card {
             width: 100%;
             max-width: 400px;
             padding: 40px 30px;
@@ -25,14 +25,14 @@
             text-align: center;
         }
 
-        .login-card h2 {
+        .criar-conta-card h2 {
             font-size: 2.2em;
             margin-bottom: 10px;
             font-weight: 700;
             font-family: $font-primary;
         }
 
-        .login-card p {
+        .criar-conta-card p {
             font-size: 1em;
             margin-bottom: 30px;
             color: rgba(255, 255, 255, 0.8);
@@ -54,7 +54,7 @@
 
         input {
             width: 100%;
-            padding: 14px 14px 14px 50px;
+            padding: 14px 14px 14px 14px;
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
