@@ -45,4 +45,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function clinica(){
+        return $this->belongsTo(Clinica::class);
+    }
 }
