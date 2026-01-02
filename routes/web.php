@@ -19,6 +19,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::get('/',[DashboardController::class,'index']);
         Route::get('/meu-perfil',[UserController::class,'show'])->name('meu-perfil');
         Route::post('/meu-perfil',[UserController::class,'updateInfosPessoais'])->name('update-meu-perfil');
+        Route::put('/meu-perfil',[UserController::class,'updateSenhaUsuario'])->name('update-senha');
     });
     Route::get('/logout',[HomeController::class,'logout']);
 });

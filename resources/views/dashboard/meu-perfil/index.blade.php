@@ -42,11 +42,13 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Telefone</label>
-                                <input type="text" name="telefone" placeholder="(11) 99999-9999" value="{{ auth()->user()->telefone }}">
+                                <input type="text" name="telefone" placeholder="(11) 99999-9999"
+                                    value="{{ auth()->user()->telefone }}">
                             </div>
                             <div class="form-group">
                                 <label>CPF</label>
-                                <input type="text" name="cpf" placeholder="000.000.000-00" value="{{ auth()->user()->cpf }}">
+                                <input type="text" name="cpf" placeholder="000.000.000-00"
+                                    value="{{ auth()->user()->cpf }}">
                             </div>
                         </div>
                         <button type="submit" class="btn-save">Salvar Alterações</button>
@@ -57,16 +59,27 @@
                     <div class="card-header">
                         <h4><i class="fa-solid fa-lock"></i> Segurança</h4>
                     </div>
-                    <form action="#" class="profile-form">
+                    <form action="{{ route('update-senha') }}" method="POST" class="profile-form">
                         @csrf
+                        @method('PUT') {{-- Opcional, mas recomendado para updates --}}
+
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 100%;">
+                                <label>Senha Atual</label>
+                                <input type="password" name="current_password" required>
+                                @error('current_password') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Nova Senha</label>
-                                <input type="password" name="password" placeholder="Mínimo 8 caracteres">
+                                <input type="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label>Confirmar Senha</label>
-                                <input type="password" name="confirm_password">
+                                <input type="password" name="password_confirmation" required>
                             </div>
                         </div>
                         <button type="submit" class="btn-outline">Atualizar Senha</button>
