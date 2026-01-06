@@ -9,6 +9,7 @@ return [
         'profissionais.manage',
         'financeiro.view',
         'config.manage',
+        'usuarios'
     ],
 
     'profissional' => [

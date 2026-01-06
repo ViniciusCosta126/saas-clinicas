@@ -10,6 +10,9 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
+    public function index(){
+        return view('dashboard.usuarios.index');
+    }
     public function show()
     {
         return view('dashboard.meu-perfil.index');
@@ -54,4 +57,6 @@ class UserController extends Controller
 
         return back()->with('success', 'Senha atualizada com sucesso!');
     }
+
+
 }

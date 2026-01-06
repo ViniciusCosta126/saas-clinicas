@@ -8,11 +8,14 @@
         <a href="#"><i class="fa-solid fa-user-injured"></i>Pacientes</a>
 
         <a href="#"><i class="fa-solid fa-user-doctor"></i>Profissionais</a>
-
         <a href="#"><i class="fa-solid fa-money-bill-trend-up"></i>Financeiro</a>
 
         @if(auth()->user()->hasPermission('config.manage'))
             <a href="{{ route('config.manage') }}"><i class="fa-solid fa-gear"></i>Configurações</a>
+        @endif
+
+        @if(auth()->user()->hasPermission('usuarios'))
+            <a href="{{ route('usuarios.index') }}"><i class="fa-solid fa-user"></i>Usuarios</a>
         @endif
     </nav>
 </aside>

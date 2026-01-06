@@ -4,12 +4,7 @@
 @vite(['resources/css/dashboard/clinica/update.scss'])
 
 <div class="dashboard-main">
-    <header class="page-header">
-        <div class="header-info">
-            <h1>Editar Clínica</h1>
-            <p>Atualize as informações cadastrais e de contato.</p>
-        </div>
-    </header>
+    <x-titulo-dash titulo="Editar Clínica" subtitulo="Atualize as informações cadastrais e de contato."/>
 
     @if(session('success'))
         <div class="alert-success">

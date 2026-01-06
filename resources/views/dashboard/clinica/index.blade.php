@@ -2,14 +2,8 @@
 
 @section('content')
 @vite(['resources/css/dashboard/clinica/index.scss'])
-<div class="dashboard-main">
-    <div class="page-header">
-        <div class="header-info">
-            <h1>Dados da Clínica</h1>
-            <p>Informações de registro e contato da unidade.</p>
-        </div>
-    </div>
-
+<div>
+    <x-titulo-dash titulo="Dados da Clínica" subtitulo="Informações de registro e contato da unidade."/>
     <div class="clinic-display-grid">
         <div class="info-card">
             <div class="info-card-header">
