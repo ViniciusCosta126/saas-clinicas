@@ -45,11 +45,11 @@
                 <i class="fa-solid fa-circle-check"></i> Unidade Ativa
             </div>
             <p class="since-text">Cliente desde {{ $clinica->created_at->format('d/m/Y') }}</p>
-            <hr>
-            <div class="support-info">
+            <!-- <hr> -->
+            <!-- <div class="support-info">
                 <p>Precisa alterar algum dado? Entre em contato com o suporte do sistema.</p>
                 <a href="#" class="btn-support">Falar com Suporte</a>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
