@@ -11,6 +11,8 @@
 
         <a href="#"><i class="fa-solid fa-money-bill-trend-up"></i>Financeiro</a>
 
-        <a href="#"><i class="fa-solid fa-gear"></i>Configurações</a>
+        @if(auth()->user()->hasPermission('config.manage'))
+            <a href="{{ route('config.manage') }}"><i class="fa-solid fa-gear"></i>Configurações</a>
+        @endif
     </nav>
 </aside>

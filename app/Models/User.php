@@ -62,4 +62,11 @@ class User extends Authenticatable
 
         return "https://ui-avatars.com/api/?name=" . urlencode($this->name) . "&background=f2f2f2&color=000";
     }
+
+    public function hasPermission(string $permission){
+        $role =  $this->role;
+        $permissions = config("roles.$role",[]);
+
+        return in_array($permission,$permissions);
+    }
 }

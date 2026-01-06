@@ -19,7 +19,7 @@
 
             <div class="topbar-user-dropdown">
                 <a href="{{ route('meu-perfil') }}"><i class="fa-regular fa-user"></i> Meu Perfil</a>
-                <a href="#"><i class="fa-solid fa-hospital"></i> Dados da Clínica</a>
+                <a href="{{ route('clinica.index') }}"><i class="fa-solid fa-hospital"></i> Dados da Clínica</a>
                 <hr>
                 <a href="/logout" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
             </div>

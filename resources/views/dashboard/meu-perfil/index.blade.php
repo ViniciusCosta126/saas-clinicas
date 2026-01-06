@@ -61,8 +61,7 @@
                     </div>
                     <form action="{{ route('update-senha') }}" method="POST" class="profile-form">
                         @csrf
-                        @method('PUT') {{-- Opcional, mas recomendado para updates --}}
-
+                        @method('PUT')
                         <div class="form-row">
                             <div class="form-group" style="flex: 100%;">
                                 <label>Senha Atual</label>
