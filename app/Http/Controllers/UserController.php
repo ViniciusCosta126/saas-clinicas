@@ -10,9 +10,10 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
-    public function index(){
-        $usuarios = User::all();
-        return view('dashboard.usuarios.index',compact('usuarios'));
+    public function index()
+    {
+        $usuarios = User::paginate(10);
+        return view('dashboard.usuarios.index', compact('usuarios'));
     }
     public function show()
     {
@@ -21,7 +22,6 @@ class UserController extends Controller
 
     public function updateInfosPessoais(Request $request)
     {
-
         $user = User::where('id', Auth::user()->id)->first();
 
         if ($user) {
@@ -59,5 +59,35 @@ class UserController extends Controller
         return back()->with('success', 'Senha atualizada com sucesso!');
     }
 
+    public function delete(User $usuario)
+    {
+        $usuario->delete();
+        return redirect('/usuarios');
+    }
 
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'role' => 'required|in:admin,profissional,recepcao,financeiro',
+        ]);
+
+        try {
+            $usuario = User::findOrFail($id);
+
+            $usuario->update([
+                'name' => $validated['name'],
+                'telefone'=>$request->telefone,
+                'cpf'=>$request->cpf,
+                'email' => $validated['email'],
+                'role' => $validated['role'],
+            ]);
+
+            return redirect()->back()->with('success', 'Usuário atualizado com sucesso!');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar o usuário.');
+        }
+    }
 }

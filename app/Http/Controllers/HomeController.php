@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\AuthService;
+use App\Models\User;
+use App\Models\UserInvites;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     protected $authService;
@@ -51,8 +55,61 @@ class HomeController extends Controller
         return redirect('/dashboard');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function criarContaConvite(string $token)
+    {
+        $convite = UserInvites::where('token', $token)->first();
+
+        if (!$convite) {
+            abort(404, 'Convite inválido.');
+        }
+
+        if ($convite->used_at) {
+            return redirect()->route('login')
+                ->with('error', 'Este convite já foi utilizado.');
+        }
+
+        if (Carbon::now()->greaterThan($convite->expires_at)) {
+            return redirect()->route('login')
+                ->with('error', 'Este convite expirou.');
+        }
+
+        return view('paginas.convite-criar-conta.index', compact('convite'));
+    }
+
+    public function postCriarContaConvite(Request $request, UserInvites $convite)
+    {
+        if ($convite->used_at) {
+            return redirect('/login')->withErrors('Este convite já foi utilizado.');
+        }
+
+        if (now()->greaterThan($convite->expires_at)) {
+            return redirect('/login')->withErrors('Este convite expirou.');
+        }
+
+        DB::transaction(function () use ($request, $convite, &$usuario) {
+
+            $usuario = User::create([
+                'name' => $convite->nome,
+                'email' => $convite->email,
+                'password' => Hash::make($request->senha),
+                'telefone' => $request->telefone,
+                'cpf' => $request->cpf,
+                'clinica_id' => $convite->clinica_id
+            ]);
+
+            $convite->update([
+                'used_at' => now()
+            ]);
+        });
+
+        Auth::login($usuario);
+
+        return redirect('/dashboard');
     }
 }
