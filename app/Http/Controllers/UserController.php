@@ -11,7 +11,8 @@ use Illuminate\Validation\Rules\Password;
 class UserController extends Controller
 {
     public function index(){
-        return view('dashboard.usuarios.index');
+        $usuarios = User::all();
+        return view('dashboard.usuarios.index',compact('usuarios'));
     }
     public function show()
     {
