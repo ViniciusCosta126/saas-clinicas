@@ -7,7 +7,9 @@
 
         <a href="#"><i class="fa-solid fa-user-injured"></i>Pacientes</a>
 
-        <a href="#"><i class="fa-solid fa-user-doctor"></i>Profissionais</a>
+        @if(auth()->user()->hasPermission('profissionais.manage'))
+            <a href="{{ route('profissionais.index') }}"><i class="fa-solid fa-user-doctor"></i>Profissionais</a>
+        @endif
         <a href="#"><i class="fa-solid fa-money-bill-trend-up"></i>Financeiro</a>
 
         @if(auth()->user()->hasPermission('config.manage'))

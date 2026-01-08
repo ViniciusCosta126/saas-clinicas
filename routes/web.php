@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClinicaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfissionaisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInviteController;
 use Illuminate\Support\Facades\Route;
@@ -14,8 +15,8 @@ Route::get('/login', [HomeController::class, 'indexLogin'])->name('login');
 Route::post('/login', [HomeController::class, 'postLogin']);
 Route::get('/criar-conta', [HomeController::class, 'criarConta'])->name('criar-conta');
 Route::post('/criar-conta', [HomeController::class, 'postCriarConta']);
-Route::get('/criar-conta-convite/{token}',[HomeController::class,"criarContaConvite"]);
-Route::post('/criar-conta-convite/{convite}',[HomeController::class,"postCriarContaConvite"])->name('usuarios.criar-conta.invite');
+Route::get('/criar-conta-convite/{token}', [HomeController::class, "criarContaConvite"]);
+Route::post('/criar-conta-convite/{convite}', [HomeController::class, "postCriarContaConvite"])->name('usuarios.criar-conta.invite');
 
 Route::middleware(['auth', 'has.clinica'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -30,12 +31,16 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
 
     Route::prefix('usuarios')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware('permission:usuarios')->name('usuarios.index');
-        Route::put('/update/{id}',[UserController::class, 'update'])->middleware('permission:usuarios');
+        Route::put('/update/{id}', [UserController::class, 'update'])->middleware('permission:usuarios');
         Route::get('/meu-perfil', [UserController::class, 'show'])->name('meu-perfil');
         Route::post('/meu-perfil', [UserController::class, 'updateInfosPessoais'])->name('update-meu-perfil');
         Route::put('/meu-perfil', [UserController::class, 'updateSenhaUsuario'])->name('update-senha');
         Route::delete('/delete/{usuario}', [UserController::class, 'delete'])->middleware('permission:usuarios')->name('usuarios.delete');
-        Route::post('/envio-convite-clinica',[UserInviteController::class,'envioConviteClinica'])->middleware('permission:usuarios')->name('usuarios.invites.store');
+        Route::post('/envio-convite-clinica', [UserInviteController::class, 'envioConviteClinica'])->middleware('permission:usuarios')->name('usuarios.invites.store');
+    });
+
+    Route::prefix('profissionais')->group(function () {
+        Route::get('/', [ProfissionaisController::class, 'index'])->middleware('permission:profissionais.manage')->name("profissionais.index");
     });
     Route::get('/logout', [HomeController::class, 'logout']);
 });
