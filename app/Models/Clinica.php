@@ -23,4 +23,8 @@ class Clinica extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function profissionais(){
+        return $this->hasMany(Profissional::class);
+    }
 }

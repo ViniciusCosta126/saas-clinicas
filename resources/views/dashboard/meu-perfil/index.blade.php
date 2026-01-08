@@ -3,10 +3,7 @@
 @section('content')
     @vite(['resources/css/dashboard/meu-perfil/index.scss'])
     <div class="dashboard-main">
-        <div class="profile-header">
-            <h1>Meu Perfil</h1>
-            <p>Gerencie suas informações pessoais e de segurança.</p>
-        </div>
+        <x-titulo-dash titulo="Meu Perfil" subtitulo="Gerencie suas informações pessoais e de segurança." />
 
         <div class="profile-grid">
             <div class="profile-card profile-sidebar">
