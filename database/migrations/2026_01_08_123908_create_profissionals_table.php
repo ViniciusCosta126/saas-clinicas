@@ -20,6 +20,7 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained('clinicas')
                 ->after('id');
+            $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

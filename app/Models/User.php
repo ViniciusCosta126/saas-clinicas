@@ -27,7 +27,7 @@ use App\Traits\BelongsToClinica;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable,BelongsToClinica,SoftDeletes;
+    use HasFactory, Notifiable, BelongsToClinica, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -70,6 +70,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Clinica::class);
     }
+    public function profissional()
+    {
+        return $this->hasOne(Profissional::class);
+    }
 
     public function getProfilePhotoAttribute()
     {
@@ -80,9 +84,10 @@ class User extends Authenticatable
         return "https://ui-avatars.com/api/?name=" . urlencode($this->name) . "&background=f2f2f2&color=000";
     }
 
-    public function hasPermission(string $permission){
-        $role =  $this->role;
-        $permissions = config("roles.$role",[]);
-        return in_array($permission,$permissions);
+    public function hasPermission(string $permission)
+    {
+        $role = $this->role;
+        $permissions = config("roles.$role", []);
+        return in_array($permission, $permissions);
     }
 }

@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Profissional extends Model
 {
-    use SoftDeletes,BelongsToClinica;
+    use SoftDeletes, BelongsToClinica;
     protected $table = 'profissionais';
 
     protected $fillable = [
@@ -30,6 +30,7 @@ class Profissional extends Model
         "especialidade",
         "preco_sessao",
         'clinica_id',
+        'user_id'
     ];
 
     protected $casts = [
@@ -39,5 +40,10 @@ class Profissional extends Model
     public function clinica()
     {
         return $this->belongsTo(Clinica::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

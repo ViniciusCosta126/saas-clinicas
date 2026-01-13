@@ -1,10 +1,20 @@
 @extends('dashboard.layout')
 
 @section('content')
+@vite(['resources/js/profissionais/index.js'])
     <div class="dashboard-main">
         <x-titulo-dash titulo="Profissionais"
             subtitulo="Aqui você gerencia seus profissionais de forma simples: adicione, edite e exclua quando precisar." />
         <x-card-container>
+            <div class="container-btns">
+                <div class="page-header-actions">
+                    <button class="btn-primary" onclick="openModal('criarNovoProfissional')">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Adicionar novo profissional</span>
+                    </button>
+                </div>
+                @include('dashboard.profissionais.components.modal-store',[$usuarios])
+            </div>
             @php
                 $headers = ['ID', 'Nome', 'Email', 'Especialidade', 'Preço Sessão', 'Ações'];
             @endphp
@@ -12,9 +22,6 @@
                 @foreach($profissionais as $profissional)
                     <tr>
                         <td class="col-id">#{{ $profissional->id }}</td>
-                        <td>
-
-                        </td>
                         <td>{{ $profissional->nome }}</td>
                         <td>
                             <div class="contact-info">
