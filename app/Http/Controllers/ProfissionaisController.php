@@ -20,7 +20,12 @@ class ProfissionaisController extends Controller
     {
         $dados = $request->validated();
         $profissional = Profissional::create($dados);
+        return to_route("profissionais.index");
+    }
 
+    public function delete(Profissional $profissional)
+    {
+        $profissional->delete();
         return to_route("profissionais.index");
     }
 }

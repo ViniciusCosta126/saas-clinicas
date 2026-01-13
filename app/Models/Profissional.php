@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Profissional extends Model
 {
-    use SoftDeletes, BelongsToClinica;
+    use BelongsToClinica;
     protected $table = 'profissionais';
 
     protected $fillable = [

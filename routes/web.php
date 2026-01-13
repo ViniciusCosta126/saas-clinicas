@@ -42,6 +42,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
     Route::prefix('profissionais')->group(function () {
         Route::get('/', [ProfissionaisController::class, 'index'])->middleware('permission:profissionais.manage')->name("profissionais.index");
         Route::post('/', [ProfissionaisController::class, 'store'])->middleware('permission:profissionais.manage')->name("profissionais.store");
+        Route::delete('/{profissional}', [ProfissionaisController::class, 'delete'])->middleware('permission:profissionais.manage')->name("profissionais.delete");
     });
     Route::get('/logout', [HomeController::class, 'logout']);
 });

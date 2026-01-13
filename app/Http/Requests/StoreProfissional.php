@@ -22,9 +22,10 @@ class StoreProfissional extends FormRequest
     public function rules(): array
     {
         $clinicaId = auth()->user()->clinica->id;
+
         return [
             "nome" => "required|string|max:255",
-            "email" => "required|email|unique:profissionais,email,NULL,id,clinica_id,{$clinicaId}",
+            'email' => "required|email|unique:profissionais,email,NULL,id,clinica_id,{$clinicaId},deleted_at,NULL",
             "especialidade" => "required|string|max:255",
             "preco_sessao" => "required|numeric",
             "clinica_id" => "exists:clinicas,id",
