@@ -1,6 +1,7 @@
 @extends('dashboard.layout')
 
 @section('content')
+@vite(['resources/js/paciente/index.js'])
     <div class="dashboard-main">
         <x-titulo-dash titulo="Pacientes"
             subtitulo="Aqui você gerencia seus pacientes de forma simples: adicione, edite e exclua quando precisar." />
@@ -33,12 +34,30 @@
                         <td class="text-center">
                             <div class="table-actions">
                                 <button type="button" class="btn-action edit"                                        
-                                        onclick="">
+                                    onclick="editPaciente(this)"
+                                    data-id="{{ $paciente->id }}"
+                                    data-nome="{{ $paciente->nome }}"
+                                    data-email="{{ $paciente->email }}"
+                                    data-telefone="{{ $paciente->telefone }}"
+                                    data-aniversario="{{ optional($paciente->aniversario)->format('Y-m-d') }}"
+                                >
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
-                                <button class="btn-action delete" onclick="">
+                                <button class="btn-action delete" onclick="openModal('deletepaciente{{ $paciente->id }}')">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
+                                <x-modal-global id="deletepaciente{{ $paciente->id }}" title="Confirmar Ação">
+                                    <p>Tem certeza que deseja excluir este registro? Esta ação não pode ser desfeita.</p>
+                                    <x-slot:footer>
+                                        <button class="btn-cancel"
+                                            onclick="closeModal('deletepaciente{{ $paciente->id }}')">Cancelar</button>
+                                        <form action="{{ route('pacientes.delete', $paciente->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn-submit">Confirmar</button>
+                                        </form>
+                                    </x-slot:footer>
+                                </x-modal-global>
                             </div>
                         </td>
                     </tr>
@@ -47,6 +66,7 @@
             <div class="pagination-area">
                 {{ $pacientes->links('vendor.pagination.saas') }}
             </div>
+            @include('dashboard.pacientes.components.modal-edit')
         </x-card-container>
     </div>
 @endsection

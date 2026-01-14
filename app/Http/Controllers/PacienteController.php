@@ -28,4 +28,23 @@ class PacienteController extends Controller
 
         return to_route("pacientes.index");
     }
+
+    public function delete(Paciente $paciente)
+    {
+        $paciente->delete();
+        return to_route("pacientes.index");
+    }
+
+    public function update(Paciente $paciente, StoreRequestPaciente $request)
+    {
+
+        $dados = $request->validated();
+
+
+        $paciente->update($dados);
+
+        return to_route('pacientes.index')
+            ->with('success', 'Paciente atualizado com sucesso!');
+    }
+
 }
