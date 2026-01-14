@@ -34,7 +34,11 @@
                         <td>{{ $profissional->preco_sessao }}</td>
                         <td class="text-center">
                             <div class="table-actions">
-                                <button type="button" class="btn-action edit">
+                                <button type="button" class="btn-action edit"                                        
+                                        onclick="editUser(this)"
+                                        data-id="{{ $profissional->id }}"
+                                        data-preco_sessao="{{  number_format($profissional->preco_sessao, 2, '.', '') }}"
+                                        data-especialidade="{{ $profissional->especialidade }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 <button class="btn-action delete" onclick="openModal('deleteProfissional{{ $profissional->id }}')">
@@ -57,7 +61,7 @@
                     </tr>
                 @endforeach
             </x-smart-table>
-
+            @include('dashboard.profissionais.components.modal-edit')
             <div class="pagination-area">
                 {{ $profissionais->links('vendor.pagination.saas') }}
             </div>

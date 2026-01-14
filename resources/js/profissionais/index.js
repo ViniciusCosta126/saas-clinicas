@@ -12,3 +12,21 @@ window.addEventListener("DOMContentLoaded", () => {
         select.dispatchEvent(new Event('change'));
     }
 })
+
+window.editUser = function (button) {
+     openModal('modalEditProfissional');
+    const id = button.getAttribute('data-id');
+    const preco = button.getAttribute('data-preco_sessao');
+    const precoNumero = parseFloat(preco);
+
+
+    const especialidade = button.getAttribute('data-especialidade');
+
+    document.getElementById('edit_preco_sessao').value = isNaN(precoNumero) ? 0.00 : precoNumero;
+    document.getElementById('edit_especialidade').value = especialidade;
+
+    const form = document.getElementById('formEditProfissional');
+    form.action = `/profissionais/update/${id}`;
+
+   
+}

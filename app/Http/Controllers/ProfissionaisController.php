@@ -28,4 +28,12 @@ class ProfissionaisController extends Controller
         $profissional->delete();
         return to_route("profissionais.index");
     }
+
+    public function update(Profissional $profissional, Request $request)
+    {
+        $profissional->preco_sessao = $request->preco_sessao;
+        $profissional->especialidade = $request->especialidade;
+        $profissional->save();
+        return to_route("profissionais.index");
+    }
 }
