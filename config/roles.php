@@ -15,7 +15,7 @@ return [
     'profissional' => [
         'dashboard.view',
         'agenda.view',
-        'pacientes.view',
+        'pacientes.manage',
     ],
 
     'recepcao' => [

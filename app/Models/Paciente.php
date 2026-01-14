@@ -41,4 +41,11 @@ class Paciente extends Model
         return $this->profissionais()
             ->whereNull('paciente_profissional.finalizado_em');
     }
+
+    public function getDataFormatadaAttribute()
+    {
+        return $this->data
+            ? $this->data->format('d/m/Y')
+            : null;
+    }
 }

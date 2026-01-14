@@ -4,8 +4,9 @@
         <a href="/dashboard"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
 
         <a href="#"><i class="fa-solid fa-calendar-days"></i>Agenda</a>
-
-        <a href="#"><i class="fa-solid fa-user-injured"></i>Pacientes</a>
+        @if(auth()->user()->hasPermission('pacientes.manage'))
+            <a href="{{ route('pacientes.index') }}"><i class="fa-solid fa-user-injured"></i>Pacientes</a>
+        @endif
 
         @if(auth()->user()->hasPermission('profissionais.manage'))
             <a href="{{ route('profissionais.index') }}"><i class="fa-solid fa-user-doctor"></i>Profissionais</a>

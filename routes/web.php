@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClinicaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfissionaisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInviteController;
@@ -19,6 +20,7 @@ Route::get('/criar-conta-convite/{token}', [HomeController::class, "criarContaCo
 Route::post('/criar-conta-convite/{convite}', [HomeController::class, "postCriarContaConvite"])->name('usuarios.criar-conta.invite');
 
 Route::middleware(['auth', 'has.clinica'])->group(function () {
+    Route::get('/logout', [HomeController::class, 'logout']);
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'index']);
     });
@@ -43,7 +45,10 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::get('/', [ProfissionaisController::class, 'index'])->middleware('permission:profissionais.manage')->name("profissionais.index");
         Route::post('/', [ProfissionaisController::class, 'store'])->middleware('permission:profissionais.manage')->name("profissionais.store");
         Route::delete('/{profissional}', [ProfissionaisController::class, 'delete'])->middleware('permission:profissionais.manage')->name("profissionais.delete");
-        Route::put("/update/{profissional}",[ProfissionaisController::class,"update"])->middleware('permission:profissionais.manage');
+        Route::put("/update/{profissional}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage');
     });
-    Route::get('/logout', [HomeController::class, 'logout']);
+
+    Route::prefix('pacientes')->group(function (){
+        Route::get('/',[PacienteController::class,'index'])->middleware('permission:pacientes.manage')->name('pacientes.index');
+    });
 });
