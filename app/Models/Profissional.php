@@ -46,4 +46,11 @@ class Profissional extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function pacientes()
+    {
+        return $this->belongsToMany(Paciente::class, 'paciente_profissional')
+            ->withPivot(['iniciado_em', 'finalizado_em', 'clinica_id'])
+            ->withTimestamps(false);
+    }
 }
