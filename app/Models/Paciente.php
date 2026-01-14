@@ -5,6 +5,14 @@ namespace App\Models;
 use App\Traits\FiltraPacientesPorAcesso;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Paciente
+ * @property int $clinica_id
+ * @property string $nome
+ * @property string $email
+ * @property string $telefone
+ * @property \Carbon\Carbon $aniversario
+ */
 class Paciente extends Model
 {
     use FiltraPacientesPorAcesso;
