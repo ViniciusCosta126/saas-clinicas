@@ -1,13 +1,14 @@
 @props(['usuarios'])
 <x-modal-global id="criarNovoPaciente" title="Adicionar um novo paciente">
-    <form action="{{ route('profissionais.store') }}" method="POST" class="invite-form">
+    <form action="{{ route('pacientes.store') }}" method="POST" class="invite-form">
         @csrf
+        <input type="text" name="clinica_id" id="clinica_id" hidden value="{{ auth()->user()->clinica->id }}">
         <div class="form-grid">
             <div class="form-group full-width">
                 <label for="nome">Nome Completo</label>
                 <div class="input-wrapper @error('nome') input-error @enderror">
                     <i class="fa-solid fa-user"></i>
-                    <input readonly type="text" name="nome" id="nome" placeholder="Ex: João Silva" value="{{ old('nome') }}">
+                    <input type="text" name="nome" id="nome" placeholder="Ex: João Silva" value="{{ old('nome') }}">
                 </div>
                 @error('nome') <span class="error-message">{{ $message }}</span> @enderror
             </div>
@@ -16,7 +17,7 @@
                 <label for="email">E-mail do paciente</label>
                 <div class="input-wrapper @error('email') input-error @enderror">
                     <i class="fa-solid fa-envelope"></i>
-                    <input readonly type="email" name="email" id="email" placeholder="email@exemplo.com"
+                    <input type="email" name="email" id="email" placeholder="email@exemplo.com"
                         value="{{ old('email') }}">
                 </div>
                 @error('email') <span class="error-message">{{ $message }}</span> @enderror

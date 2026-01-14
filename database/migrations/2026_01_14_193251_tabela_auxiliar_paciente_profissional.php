@@ -27,8 +27,9 @@ return new class extends Migration {
 
             $table->timestamp('iniciado_em')->useCurrent();
             $table->timestamp('finalizado_em')->nullable();
-
+            $table->timestamps();
             $table->unique(['paciente_id', 'profissional_id', 'finalizado_em']);
+
         });
     }
 

@@ -50,5 +50,6 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
 
     Route::prefix('pacientes')->group(function (){
         Route::get('/',[PacienteController::class,'index'])->middleware('permission:pacientes.manage')->name('pacientes.index');
+        Route::post('/',[PacienteController::class,'store'])->name('pacientes.store');
     });
 });

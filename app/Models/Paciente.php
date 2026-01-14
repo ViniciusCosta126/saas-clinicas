@@ -25,6 +25,10 @@ class Paciente extends Model
         'aniversario',
     ];
 
+    protected $casts = [
+        'aniversario' => 'date',
+    ];
+    
     public function clinica()
     {
         return $this->belongsTo(Clinica::class);
@@ -44,8 +48,8 @@ class Paciente extends Model
 
     public function getDataFormatadaAttribute()
     {
-        return $this->data
-            ? $this->data->format('d/m/Y')
+        return $this->aniversario
+            ? $this->aniversario->format('d/m/Y')
             : null;
     }
 }
