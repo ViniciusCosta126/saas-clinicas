@@ -1,5 +1,5 @@
 <aside class="sidebar">
-    <div class="sidebar-logo">SaaS Clínicas</div>
+    <div class="sidebar-logo">Lumina</div>
     <nav class="sidebar-nav">
         <a href="/dashboard"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
 

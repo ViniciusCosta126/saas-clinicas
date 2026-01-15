@@ -321,16 +321,21 @@ body {
             top: 10%;
             right: -30px;
             animation-delay: 0.5s;
+            
+            @media (max-width: 1024px) {
+                right: 0;
+            }
         }
 
         &.appointment {
             bottom: 10%;
             left: -30px;
+
+            @media (max-width: 1024px) {
+                left: 0;
+            }
         }
 
-        @media (max-width: 480px) {
-            display: none;
-        }
     }
 }
 

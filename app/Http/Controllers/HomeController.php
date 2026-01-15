@@ -61,7 +61,7 @@ class HomeController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function criarContaConvite(string $token)

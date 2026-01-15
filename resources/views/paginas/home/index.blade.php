@@ -5,7 +5,7 @@
         <div class="container nav-content">
             <div class="logo">
                 <i class="fa-solid fa-house-medical"></i>
-                <span>SaaS Clínicas</span>
+                <span>Lumina</span>
             </div>
             
             <button class="mobile-menu-toggle" id="menuToggle">
@@ -95,7 +95,7 @@
                 <div class="footer-brand">
                     <div class="logo">
                         <i class="fa-solid fa-house-medical"></i>
-                        <span>SaaS Clínicas</span>
+                        <span>Lumina</span>
                     </div>
                     <p>A plataforma definitiva para clínicas modernas que buscam eficiência e segurança.</p>
                     <div class="social-links">
@@ -126,7 +126,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 SaaS Clínicas. Todos os direitos reservados.</p>
+                <p>&copy; 2026 Lumina. Todos os direitos reservados.</p>
                 <div class="legal">
                     <a href="#">Privacidade</a>
                     <a href="#">Termos de Uso</a>
