@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <title>Painel da Clínica</title>
-    @vite(['resources/css/app.scss','resources/css/dashboard/dashboard.scss', 'resources/js/dashboard.js'])
+    @vite(['resources/css/dashboard/dashboard.scss', 'resources/js/dashboard.js'])
 </head>
 <body class="dashboard">
     @include('dashboard.partials.sidebar')

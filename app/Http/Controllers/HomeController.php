@@ -17,6 +17,9 @@ class HomeController extends Controller
     {
         $this->authService = $authService;
     }
+    public function index(){
+        return view('paginas.home.index');
+    }
 
     public function indexLogin()
     {
@@ -41,9 +44,9 @@ class HomeController extends Controller
 
     public function postLogin(Request $request)
     {
-        $credentials = $request->only('email', 'senha');
+        $credentials = $request->only('email', 'password');
 
-        if (!Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['senha']])) {
+        if (!Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             return back()->withErrors(['email' => 'Credenciais inválidas']);
         }
 

@@ -5,31 +5,57 @@
     <section id="criar-conta">
         <div class="container criar-conta">
             <div class="criar-conta-card">
-                <h2>Bem Vindo</h2>
-                <p>Insira seus dados para criar a conta da sua clinica</p>
+                <div class="header-auth">
+                    <h2>Bem-vindo</h2>
+                    <p>Crie a conta da sua clínica para começar.</p>
+                </div>
+
                 <form class="criar-conta-form" method="POST">
                     @csrf
                     <div class="input-group">
-                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <label for="nome_clinica">Nome da Clínica</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-hospital"></i>
+                            <input type="text" id="nome_clinica" name="nome_clinica" placeholder="Ex: Clínica Sorriso" required>
+                        </div>
                     </div>
 
                     <div class="input-group">
-                        <input type="password" id="password" name="senha" placeholder="Senha" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="nome_clinica" name="nome_clinica" placeholder="Nome clinica" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="nome_responsavel" name="nome_responsavel" placeholder="Nome do Responsavel" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="telefone" name="telefone" placeholder="Telefone" required>
+                        <label for="nome_responsavel">Nome do Responsável</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <input type="text" id="nome_responsavel" name="nome_responsavel" placeholder="Seu nome completo" required>
+                        </div>
                     </div>
 
-                    <button type="submit">Criar conta</button>
+                    <div class="input-group">
+                        <label for="email">E-mail Profissional</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="email@clinica.com" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Senha</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" name="senha" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="telefone">Telefone / WhatsApp</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary-auth">Criar minha conta</button>
 
                     <div class="extra-links">
-                        <a href="/login">Ja tem conta? Faça login</a>
+                        <span>Já tem conta? <a href="/login">Faça login</a></span>
                     </div>
                 </form>
             </div>

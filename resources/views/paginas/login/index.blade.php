@@ -5,25 +5,37 @@
     <section id="login">
         <div class="container login">
             <div class="login-card">
-                <h2>Bem Vindo</h2>
-                <p>Insira sua conta para continuar</p>
-                <form class="login-form" method="post">
+                <div class="header-auth">
+                    <h2>Bem-vindo</h2>
+                    <p>Acesse sua conta para continuar</p>
+                </div>
+
+                <form class="login-form" method="POST">
                     @csrf
+                    
                     <div class="input-group">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="email" placeholder="Email" name="email" required>
+                        <label for="email">E-mail</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com" required autofocus>
+                        </div>
+                        @error('email') <span class="error-message">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="input-group">
-                        <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="password" name="senha" placeholder="Senha" required>
+                        <label for="password">Senha</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Sua senha" required>
+                        </div>
+                        @error('password') <span class="error-message">{{ $message }}</span> @enderror
                     </div>
 
-                    <button type="submit">Entrar</button>
+                    <button type="submit" class="btn-primary-auth">Entrar no Sistema</button>
 
                     <div class="extra-links">
-                        <a href="/criar-conta">Criar conta</a>
-                        <a href="#">Esqueceu sua senha?</a>
+                        <a href="/criar-conta">Não tem conta? <strong>Cadastre-se</strong></a>
+                        <a href="#" class="forgot-password">Esqueceu sua senha?</a>
                     </div>
                 </form>
             </div>

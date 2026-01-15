@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //Rotas deslogadas
-
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [HomeController::class, 'indexLogin'])->name('login');
 Route::post('/login', [HomeController::class, 'postLogin']);
 Route::get('/criar-conta', [HomeController::class, 'criarConta'])->name('criar-conta');
@@ -19,6 +19,8 @@ Route::post('/criar-conta', [HomeController::class, 'postCriarConta']);
 Route::get('/criar-conta-convite/{token}', [HomeController::class, "criarContaConvite"]);
 Route::post('/criar-conta-convite/{convite}', [HomeController::class, "postCriarContaConvite"])->name('usuarios.criar-conta.invite');
 
+
+//Rotas Logadas
 Route::middleware(['auth', 'has.clinica'])->group(function () {
     Route::get('/logout', [HomeController::class, 'logout']);
     Route::prefix('dashboard')->group(function () {

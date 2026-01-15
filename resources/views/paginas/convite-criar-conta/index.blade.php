@@ -5,25 +5,43 @@
     <section id="criar-conta">
         <div class="container criar-conta">
             <div class="criar-conta-card">
-                <h2>Bem Vindo</h2>
-                <p>Insira seus dados para ingressar na clinica: {{ \App\Helpers\ClinicaHelper::getNomeClinica($convite->clinica_id) }}</p>
-                <form class="criar-conta-form" method="POST" action="{{ route('usuarios.criar-conta.invite',$convite->id) }}">
+                <div class="header-auth">
+                    <i class="fa-solid fa-envelope-open-text" style="font-size: 2rem; color: #38bdf8; margin-bottom: 15px;"></i>
+                    <h2>Quase lá!</h2>
+                    <p>Complete seus dados para ingressar na <br><strong>{{ \App\Helpers\ClinicaHelper::getNomeClinica($convite->clinica_id) }}</strong></p>
+                </div>
+
+                <form class="criar-conta-form" method="POST" action="{{ route('usuarios.criar-conta.invite', $convite->id) }}">
                     @csrf
+                    
                     <div class="input-group">
-                        <input type="password" id="password" name="senha" placeholder="Senha" required>
+                        <label for="password">Defina sua Senha</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" name="senha" placeholder="Mínimo 8 caracteres" required autofocus>
+                        </div>
                     </div>
 
                     <div class="input-group">
-                        <input type="text" id="telefone" name="telefone" placeholder="Telefone" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="telefone" name="cpf" placeholder="Cpf" required>
+                        <label for="telefone">Telefone / WhatsApp</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                        </div>
                     </div>
 
-                    <button type="submit">Criar conta</button>
+                    <div class="input-group">
+                        <label for="cpf">Seu CPF</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-id-card"></i>
+                            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary-auth">Concluir meu Cadastro</button>
 
                     <div class="extra-links">
-                        <a href="/login">Ja tem conta? Faça login</a>
+                        <span>Já possui acesso? <a href="/login">Faça login</a></span>
                     </div>
                 </form>
             </div>

@@ -10,7 +10,6 @@ class PacienteController extends Controller
 {
     public function index()
     {
-
         $pacientes = Paciente::visiveis()->paginate(10);
         return view('dashboard.pacientes.index', compact('pacientes'));
     }
@@ -37,10 +36,7 @@ class PacienteController extends Controller
 
     public function update(Paciente $paciente, StoreRequestPaciente $request)
     {
-
         $dados = $request->validated();
-
-
         $paciente->update($dados);
 
         return to_route('pacientes.index')
