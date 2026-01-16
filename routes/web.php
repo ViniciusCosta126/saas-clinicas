@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\ClinicaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -48,12 +49,17 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::post('/', [ProfissionaisController::class, 'store'])->middleware('permission:profissionais.manage')->name("profissionais.store");
         Route::delete('/{profissional}', [ProfissionaisController::class, 'delete'])->middleware('permission:profissionais.manage')->name("profissionais.delete");
         Route::put("/update/{profissional}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage');
+        Route::get('/horarios-disponiveis', [ProfissionaisController::class, 'buscarHorarios'])->name('profissionais.horarios');
     });
 
-    Route::prefix('pacientes')->group(function (){
-        Route::get('/',[PacienteController::class,'index'])->middleware('permission:pacientes.manage')->name('pacientes.index');
-        Route::post('/',[PacienteController::class,'store'])->name('pacientes.store');
-        Route::delete('/delete/{paciente}',[PacienteController::class,'delete'])->name('pacientes.delete');
-        Route::put('/update/{paciente}',[PacienteController::class,'update']);
+    Route::prefix('pacientes')->group(function () {
+        Route::get('/', [PacienteController::class, 'index'])->middleware('permission:pacientes.manage')->name('pacientes.index');
+        Route::post('/', [PacienteController::class, 'store'])->name('pacientes.store');
+        Route::delete('/delete/{paciente}', [PacienteController::class, 'delete'])->name('pacientes.delete');
+        Route::put('/update/{paciente}', [PacienteController::class, 'update']);
+    });
+
+    Route::prefix('agendamento')->group(function (){
+        Route::post('/',[AgendamentoController::class,'storeAgendamento'])->name("agendamento.store");
     });
 });

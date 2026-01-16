@@ -22,7 +22,7 @@
                 @foreach ($pacientes as $paciente )
                     <tr>
                         <td class="col-id">#{{ $paciente->id }}</td>
-                        <td>{{ $paciente->nome }}</td>
+                        <td id="nome_paciente{{ $paciente->id }}">{{ $paciente->nome }}</td>
                         <td>
                             <div class="contact-info">
                                 <small><i class="fa-regular fa-envelope"></i>{{ $paciente->email }}</small>
@@ -33,6 +33,9 @@
                         <td>{{ \App\Helpers\ClinicaHelper::getNomeClinica($paciente->clinica_id) }}</td>
                         <td class="text-center">
                             <div class="table-actions">
+                                <button onclick="createAgendaento(this)" data-id_paciente="{{ $paciente->id }}" title="Clique aqui para marcar um agendamento" type="button" class="btn-action add">
+                                    <i class="fa-regular fa-calendar"></i>
+                                </button>
                                 <button type="button" class="btn-action edit"                                        
                                     onclick="editPaciente(this)"
                                     data-id="{{ $paciente->id }}"
@@ -67,6 +70,7 @@
                 {{ $pacientes->links('vendor.pagination.saas') }}
             </div>
             @include('dashboard.pacientes.components.modal-edit')
+            @include('dashboard.pacientes.components.modal-criar-agendamento')
         </x-card-container>
     </div>
 @endsection
