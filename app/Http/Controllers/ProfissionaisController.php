@@ -39,45 +39,52 @@ class ProfissionaisController extends Controller
         return to_route("profissionais.index");
     }
 
-    public function buscarHorarios(Request $request)
-    {
-        $data = $request->query('data');
-        $profissionalId = $request->query('profissional_id');
+public function buscarHorarios(Request $request)
+{
+    $data = $request->query('data');
+    $profissionalId = $request->query('profissional_id');
 
-        $horariosPossiveis = [
-            '08:00',
-            '09:00',
-            '10:00',
-            '11:00',
-            '13:00',
-            '14:00',
-            '15:00',
-            '16:00',
-            '17:00',
-            '18:00'
-        ];
+    $horariosPossiveis = [
+        '08:00','09:00','10:00','11:00',
+        '13:00','14:00','15:00','16:00',
+        '17:00','18:00'
+    ];
 
-        $dataSelecionada = Carbon::parse($data);
-        if ($dataSelecionada->isPast() && !$dataSelecionada->isToday()) {
-            return response()->json([]);
-        }
+    $timezone = config('app.timezone');
+    $dataSelecionada = Carbon::parse($data, $timezone);
 
-        if ($dataSelecionada->isToday()) {
-            $agora = Carbon::now();
-            $horariosPossiveis = array_filter($horariosPossiveis, function ($hora) use ($agora) {
-                return Carbon::parse($hora)->isAfter($agora);
-            });
-        }
-
-        $ocupados = Agendamento::where('profissional_id', $profissionalId)
-            ->where('data', $data)
-            ->whereIn('status', ['agendado', 'confirmado'])
-            ->pluck('horario_inicio')
-            ->map(fn($hora) => Carbon::parse($hora)->format('H:i'))
-            ->toArray();
-
-        $disponiveis = array_diff($horariosPossiveis, $ocupados);
-
-        return response()->json(array_values($disponiveis));
+    if ($dataSelecionada->isBefore(today($timezone))) {
+        return response()->json([]);
     }
+
+    if ($dataSelecionada->isToday()) {
+        $agora = now($timezone);
+
+        $horariosPossiveis = collect($horariosPossiveis)
+            ->filter(function ($hora) use ($agora, $dataSelecionada, $timezone) {
+
+                $dataHora = Carbon::createFromFormat(
+                    'Y-m-d H:i',
+                    $dataSelecionada->format('Y-m-d') . ' ' . $hora,
+                    $timezone
+                );
+
+                return $dataHora->greaterThan($agora);
+            })
+            ->values()
+            ->toArray();
+    }
+
+    $ocupados = Agendamento::where('profissional_id', $profissionalId)
+        ->where('data', $data)
+        ->whereIn('status', ['agendado', 'confirmado'])
+        ->pluck('horario_inicio')
+        ->map(fn ($hora) => Carbon::parse($hora)->format('H:i'))
+        ->toArray();
+
+    $disponiveis = array_values(array_diff($horariosPossiveis, $ocupados));
+
+    return response()->json($disponiveis);
+}
+
 }

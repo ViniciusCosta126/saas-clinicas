@@ -47,7 +47,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn-submit">
-                <i class="fa-solid fa-paper-plane"></i> Criar Paciente
+                <i class="fa-solid fa-paper-plane"></i> Salvar Paciente
             </button>
         </div>
     </form>

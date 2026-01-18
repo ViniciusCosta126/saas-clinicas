@@ -3,7 +3,7 @@
     <nav class="sidebar-nav">
         <a href="/dashboard"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
 
-        <a href="#"><i class="fa-solid fa-calendar-days"></i>Agenda</a>
+        <a href="{{ route("agendamento.index") }}"><i class="fa-solid fa-calendar-days"></i>Agenda</a>
         @if(auth()->user()->hasPermission('pacientes.manage'))
             <a href="{{ route('pacientes.index') }}"><i class="fa-solid fa-user-injured"></i>Pacientes</a>
         @endif

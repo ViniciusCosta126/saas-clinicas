@@ -22,12 +22,12 @@ class StoreAgendamentoRequest extends FormRequest
     {
         return [
             'clinica_id'      => 'required|exists:clinicas,id',
-            'profissional_id' => 'required|exists:users,id', // ou 'profissionais,id' dependendo da sua tabela
+            'profissional_id' => 'required|exists:users,id',
             'paciente_id'     => 'required|exists:pacientes,id',
             'data'            => [
                 'required',
                 'date',
-                'after_or_equal:today', // Impede datas passadas
+                'after_or_equal:today',
             ],
             'horario_inicio'  => 'required|date_format:H:i',
             'horario_fim'     => 'required|date_format:H:i|after:horario_inicio',
