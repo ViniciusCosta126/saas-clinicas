@@ -51,7 +51,7 @@ class Agendamento extends Model
 
     public function scopeDoDia($query, $data)
     {
-        return $query->where('data', $data);
+        return $query->whereDate('data', $data);
     }
 
     public function scopeAtivos($query)
