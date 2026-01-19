@@ -56,7 +56,7 @@ class Agendamento extends Model
 
     public function scopeAtivos($query)
     {
-        return $query->whereIn('status', ['agendado', 'confirmado']);
+        return $query->whereIn('status', ['agendado', 'confirmado','concluído','nao_compareceu']);
     }
 
     public function getDataFormatadaAttribute()

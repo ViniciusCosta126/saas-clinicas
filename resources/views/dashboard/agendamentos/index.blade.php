@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
 @section('content')
-    @vite(['resources/css/dashboard/agendamento/index.scss','resources/js/agendamentos/index.js'])
+    @vite(['resources/css/dashboard/agendamento/index.scss', 'resources/js/agendamentos/index.js'])
 
     <div>
         <x-titulo-dash titulo="Agendamentos"
@@ -12,7 +12,7 @@
                     <button onclick="openModal('modalCriarAgendamento')" class="btn-primary">
                         <i class="fa-solid fa-plus"></i> Novo Agendamento
                     </button>
-                    @include('dashboard.agendamentos.components.modal-store',['pacientes'=>$pacientes])
+                    @include('dashboard.agendamentos.components.modal-store', ['pacientes' => $pacientes])
                     <div class="date-picker-wrapper">
                         <i class="fa-solid fa-calendar-day"></i>
                         <input type="date" id="data_agenda" value="{{ $dataSelecionada }}" class="input-date-clean"
@@ -41,11 +41,20 @@
                                             {{ \Carbon\Carbon::parse($item->horario_fim)->format('H:i') }}</span>
                                     </div>
                                     <div class="table-actions">
-                                        <button class="btn-action edit" title="Editar"><i class="fa-solid fa-pen"></i></button>
-                                        <button class="btn-action add" title="Confirmar Presença"><i
-                                                class="fa-solid fa-check"></i></button>
-                                        <button class="btn-action delete" title="Cancelar"><i
-                                                class="fa-solid fa-xmark"></i></button>
+                                        @if($item->status != "nao_compareceu" && $item->status != 'concluído')
+                                            <button data-id="{{ $item->id }}" onclick="concluirAgendamento(this)"
+                                                class="btn-action done" title="Finalizar Atendimento">
+                                                <i class="fa-solid fa-file-circle-check"></i>
+                                            </button>
+
+                                            <button data-id="{{ $item->id }}" onclick="confirmarPresenca(this)" class="btn-action add"
+                                                title="Confirmar presença do paciente">
+                                                <i class="fa-solid fa-check"></i>
+                                            </button>
+
+                                            <button data-id="{{ $item->id }}" onclick="cancelaAgendamento(this)"
+                                                class="btn-action delete" title="Cancelar"><i class="fa-solid fa-xmark"></i></button>
+                                        @endif
                                     </div>
                                 </div>
                             @else
@@ -74,8 +83,7 @@
                                         <span>Horário encerrado</span>
                                     </div>
                                 @else
-                                    <div class="empty-slot"
-                                        onclick="prepararAgendamento('{{ $hora }}','{{ $dataSelecionada }}')">
+                                    <div class="empty-slot" onclick="prepararAgendamento('{{ $hora }}','{{ $dataSelecionada }}')">
                                         <i class="fa-solid fa-plus-circle"></i>
                                         <span>Disponível para agendamento</span>
                                     </div>
@@ -86,7 +94,8 @@
                 @endforeach
             </div>
         </x-card-container>
-
-
+        @include('dashboard.agendamentos.components.modal-confirma-cancelamento')
+        @include('dashboard.agendamentos.components.modal-confirmar-presenca')
+        @include('dashboard.agendamentos.components.modal-confirma-comparecimento')
     </div>
 @endsection

@@ -62,5 +62,6 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
     Route::prefix('agendamento')->group(function (){
         Route::get('/',[AgendamentoController::class,"index"])->name("agendamento.index");
         Route::post('/',[AgendamentoController::class,'storeAgendamento'])->name("agendamento.store");
+        Route::put('/altera-status-atendimento/{agendamento}',[AgendamentoController::class,'alteraStatusAtendimento']);
     });
 });

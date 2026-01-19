@@ -13,7 +13,7 @@ class AgendamentoController extends Controller
     {
         $dataSelecionada = $request->query('data', date('Y-m-d'));
 
-        $horarios = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00',"18:00"];
+        $horarios = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', "18:00"];
 
         $agendamentos = Agendamento::where('profissional_id', auth()->id())
             ->ativos()
@@ -23,9 +23,9 @@ class AgendamentoController extends Controller
 
         $pacientes = Paciente::visiveis()->get();
 
-        return view('dashboard.agendamentos.index', compact('horarios', 'agendamentos', 'dataSelecionada','pacientes'));
+        return view('dashboard.agendamentos.index', compact('horarios', 'agendamentos', 'dataSelecionada', 'pacientes'));
     }
-    
+
     public function storeAgendamento(StoreAgendamentoRequest $request)
     {
         $data = $request->validated();
@@ -43,4 +43,12 @@ class AgendamentoController extends Controller
 
         return back()->with('success', 'Agendamento realizado com sucesso!');
     }
+
+    public function alteraStatusAtendimento(Agendamento $agendamento,Request $request)
+    {
+        $agendamento->status = $request->status;
+        $agendamento->save();
+        return back()->with('success', 'Status do agendamento alterado com sucesso!');
+    }
+    
 }

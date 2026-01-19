@@ -15,3 +15,27 @@ window.prepararAgendamento = (horario, data) => {
 
     definirHorarioFim();
 }
+
+window.cancelaAgendamento = (button) => {
+    openModal('cancelaAtendimento')
+    const id = button.getAttribute('data-id');
+    const form = document.getElementById('cancelaAtendimentoForm');
+    form.action = `/agendamento/altera-status-atendimento/${id}`;
+}
+
+window.confirmarPresenca = (button) => {
+    openModal('confirmaPresencaAtendimento')
+    const id = button.getAttribute('data-id');
+    const form = document.getElementById('confirmaPresencaAtendimentoForm');
+    form.action = `/agendamento/altera-status-atendimento/${id}`;
+}
+
+window.concluirAgendamento = (button) => {
+    openModal('confirmaComparecimentoAtendimento')
+    const id = button.getAttribute('data-id');
+    const forms = document.querySelectorAll('.confirmaComparecimentoAtendimentoForm');
+
+    forms.forEach(form => {
+        form.action = `/agendamento/altera-status-atendimento/${id}`;
+    })
+}
