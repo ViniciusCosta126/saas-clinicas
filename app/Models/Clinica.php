@@ -17,14 +17,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Clinica extends Model
 {
-    protected $fillable = ['nome_responsavel','nome_clinica', 'email', 'telefone'];
+    protected $fillable = ['nome_responsavel', 'nome_clinica', 'email', 'telefone'];
 
     public function users()
     {
         return $this->hasMany(User::class);
     }
 
-    public function profissionais(){
+    public function profissionais()
+    {
         return $this->hasMany(Profissional::class);
     }
 }
