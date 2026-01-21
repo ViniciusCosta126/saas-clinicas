@@ -6,7 +6,7 @@
 - Um agendamento pode ser:
     - cancelado
     - marcado como falta
-    - concluído com sucesso
+    - concluido com sucesso
 
 - Ao cancelar, o agendamento não deve gerar atendimento
 

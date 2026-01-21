@@ -150,7 +150,7 @@
     }
 
 
-    &.status-concluído {
+    &.status-concluido {
         background-color: $color-success;
         border-left-color: $color-success;
         color: #fff;
@@ -442,7 +442,7 @@
                 background: #f59e0b;
             }
 
-            &.status-concluído {
+            &.status-concluido {
                 &:hover {
                     .slot-info {
                         opacity: 1;
@@ -454,6 +454,20 @@
                 }
 
                 background: #10b981;
+            }
+
+            &.status-nao_compareceu {
+                &:hover {
+                    .slot-info {
+                        opacity: 1;
+                    }
+
+                    .slot-actions {
+                        opacity: 0;
+                    }
+                }
+
+                background-color: $color-danger;
             }
         }
 

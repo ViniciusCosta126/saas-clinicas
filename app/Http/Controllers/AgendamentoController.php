@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Agendamento\CancelarAgendamento;
+use App\Actions\Agendamento\ConcluirAgendamento;
+use App\Actions\Agendamento\CriarAgendamento;
+use App\Actions\Agendamento\MarcaFaltaAgendamento;
+use App\Exceptions\ConcluirAgendamentoException;
+use App\Exceptions\CriarAgendamentoException;
+use App\Exceptions\MarcaFaltaAgendamentoException;
 use App\Http\Requests\StoreAgendamentoRequest;
 use App\Models\Agendamento;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use App\Exceptions\CancelarAgendamentoException;
 
 class AgendamentoController extends Controller
 {
@@ -45,30 +53,43 @@ class AgendamentoController extends Controller
         ));
     }
 
-    public function storeAgendamento(StoreAgendamentoRequest $request)
+    public function storeAgendamento(StoreAgendamentoRequest $request, CriarAgendamento $action)
     {
-        $data = $request->validated();
-
-        $conflito = Agendamento::where('profissional_id', $data['profissional_id'])
-            ->where('data', $data['data'])
-            ->where('horario_inicio', $data['horario_inicio'])
-            ->exists();
-
-
-        if ($conflito) {
-            return back()->with('error', 'Este horário acabou de ser ocupado. Escolha outro.');
+        try {
+            $action->execute($request->validated());
+            return back()->with('success', 'Agendamento realizado com sucesso!');
+        } catch (CriarAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        $agendamento = Agendamento::create($data);
-
-        return back()->with('success', 'Agendamento realizado com sucesso!');
     }
 
-    public function alteraStatusAtendimento(Agendamento $agendamento, Request $request)
+    public function cancelarAgendamento($id)
     {
-        $agendamento->status = $request->status;
-        $agendamento->save();
-        return back()->with('success', 'Status do agendamento alterado com sucesso!');
+        try {
+            (new CancelarAgendamento())->execute($id);
+            return redirect()->back()->with('success', 'Agendamento cancelado com sucesso.');
+        } catch (CancelarAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
+    public function concluirAgendamento($id, ConcluirAgendamento $action)
+    {
+        try {
+            $action->execute($id);
+            return back()->with('success', "Agendamento concluido com sucesso!");
+        } catch (ConcluirAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function faltaAgendamento($id, MarcaFaltaAgendamento $action)
+    {
+        try {
+            $action->execute($id);
+            return back()->with('success', "Falta marcada com sucesso!");
+        } catch (MarcaFaltaAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
 }

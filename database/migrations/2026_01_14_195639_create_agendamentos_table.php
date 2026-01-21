@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('data');
             $table->time('horario_inicio');
             $table->time("horario_fim");
-            $table->enum('status',['agendado','confirmado','concluído','cancelado','nao_compareceu'])->default('agendado');
+            $table->enum('status',['agendado','confirmado','concluido','cancelado','nao_compareceu'])->default('agendado');
             $table->timestamps();
             $table->index(['clinica_id', 'profissional_id', 'data']);
             $table->index(['paciente_id']);

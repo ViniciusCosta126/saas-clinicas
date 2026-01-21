@@ -14,6 +14,7 @@
     <div class="dashboard-content">
         @include('dashboard.partials.topbar')
         <main class="dashboard-main">
+            <x-snack-bar/>
             @yield('content')
         </main>
     </div>
