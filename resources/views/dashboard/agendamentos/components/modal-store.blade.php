@@ -21,18 +21,7 @@
                 @error('paciente_id') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
-            <div class="form-group">
-                <label for="status">Status Inicial</label>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <select name="status" id="status">
-                        <option value="agendado">Agendado</option>
-                        <option value="confirmado">Confirmado</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
+            <div class="form-group full-width">
                 <label for="data">Data do Agendamento</label>
                 <div class="input-wrapper  @error('data') input-error @enderror">
                     <i class="fa-solid fa-calendar-day"></i>

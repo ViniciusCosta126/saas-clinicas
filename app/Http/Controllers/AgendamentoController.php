@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Actions\Agendamento\CancelarAgendamento;
 use App\Actions\Agendamento\ConcluirAgendamento;
+use App\Actions\Agendamento\CriarAgendamento;
 use App\Actions\Agendamento\MarcaFaltaAgendamento;
 use App\Exceptions\ConcluirAgendamentoException;
+use App\Exceptions\CriarAgendamentoException;
 use App\Exceptions\MarcaFaltaAgendamentoException;
 use App\Http\Requests\StoreAgendamentoRequest;
 use App\Models\Agendamento;
@@ -51,23 +53,14 @@ class AgendamentoController extends Controller
         ));
     }
 
-    public function storeAgendamento(StoreAgendamentoRequest $request)
+    public function storeAgendamento(StoreAgendamentoRequest $request, CriarAgendamento $action)
     {
-        $data = $request->validated();
-
-        $conflito = Agendamento::where('profissional_id', $data['profissional_id'])
-            ->where('data', $data['data'])
-            ->where('horario_inicio', $data['horario_inicio'])
-            ->exists();
-
-
-        if ($conflito) {
-            return back()->with('error', 'Este horário acabou de ser ocupado. Escolha outro.');
+        try {
+            $action->execute($request->validated());
+            return back()->with('success', 'Agendamento realizado com sucesso!');
+        } catch (CriarAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        $agendamento = Agendamento::create($data);
-
-        return back()->with('success', 'Agendamento realizado com sucesso!');
     }
 
     public function cancelarAgendamento($id)
