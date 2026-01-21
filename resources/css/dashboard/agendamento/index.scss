@@ -42,6 +42,38 @@
     }
 }
 
+.view-switcher {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 8px;
+    margin-left: $spacing-4;
+    width: fit-content;
+
+    .btn-view {
+        padding: 8px 16px;
+        border: none;
+        background: transparent;
+        color: #64748b;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.2s;
+        text-decoration: none;
+        font-size: 0.9rem;
+
+        &.active {
+            background: #fff;
+            color: #3b82f6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        &:hover:not(.active) {
+            background: #e2e8f0;
+        }
+    }
+}
+
 .agenda-body {
     max-height: 465px;
     overflow-y: scroll;
@@ -247,6 +279,189 @@
 
         &:active {
             transform: translateY(0);
+        }
+    }
+}
+
+.semana-grid {
+    display: grid;
+    grid-template-columns: 40px repeat(7, 1fr);
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+
+    .col-header {
+        text-align: center;
+        padding: 10px;
+        background: #f8fafc;
+        border-radius: 6px;
+
+        .dia-nome {
+            display: block;
+            font-weight: bold;
+            color: #1e293b;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .dia-data {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        &.hoje {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+
+            .dia-nome {
+                color: #3b82f6;
+            }
+        }
+    }
+
+    .time-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding-top: 55px;
+
+        span {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-weight: 500;
+            height: 60px;
+        }
+    }
+
+    .dia-coluna {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .slot-semanal {
+        height: 60px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        padding: 4px 8px;
+        border: 1px dashed #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: 0.2s;
+
+        &.disponivel {
+            cursor: pointer;
+
+            &:hover {
+                background: #f0fdf4;
+                border-color: #22c55e;
+            }
+        }
+
+        &.ocupado {
+            border: none;
+            color: white;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
+            overflow: hidden;
+
+            .slot-info {
+                display: flex;
+                flex-direction: column;
+                transition: opacity 0.2s;
+            }
+
+            .slot-actions {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: $color-gray;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                opacity: 0;
+                transition: opacity 0.2s;
+            }
+
+            &:hover {
+                .slot-info {
+                    opacity: 0.3;
+                }
+
+                .slot-actions {
+                    opacity: 1;
+                }
+            }
+
+            .action-mini {
+                border: none;
+                background: white;
+                width: 24px;
+                height: 24px;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 0.7rem;
+                transition: transform 0.1s;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+
+                &.done {
+                    color: #10b981;
+                }
+
+                &.add {
+                    color: #3b82f6;
+                }
+
+                &.delete {
+                    color: #ef4444;
+                }
+            }
+
+            &.status-agendado {
+                background: $color-bg;
+                color: $color-dark;
+            }
+
+            &.status-confirmado {
+                background: #3b82f6;
+            }
+
+            &.status-pendente {
+                background: #f59e0b;
+            }
+
+            &.status-concluído {
+                &:hover {
+                    .slot-info {
+                        opacity: 1;
+                    }
+
+                    .slot-actions {
+                        opacity: 0;
+                    }
+                }
+
+                background: #10b981;
+            }
+        }
+
+        &.bloqueado {
+            background: #f8fafc;
+            color: #cbd5e1;
+            cursor: not-allowed;
+            border: 1px solid #f1f5f9;
         }
     }
 }
