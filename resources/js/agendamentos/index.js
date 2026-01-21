@@ -31,11 +31,13 @@ window.confirmarPresenca = (button) => {
 }
 
 window.concluirAgendamento = (button) => {
-    openModal('confirmaComparecimentoAtendimento')
-    const id = button.getAttribute('data-id');
-    const forms = document.querySelectorAll('.confirmaComparecimentoAtendimentoForm');
+    openModal('confirmaComparecimentoAtendimento');
 
-    forms.forEach(form => {
-        form.action = `/agendamento/altera-status-atendimento/${id}`;
-    })
-}
+    const id = button.getAttribute('data-id');
+
+    document.querySelectorAll('.acaoAgendamentoForm')
+        .forEach(form => {
+            const acao = form.dataset.acao;
+            form.action = `/agendamento/${id}/${acao}`;
+        });
+};

@@ -46,7 +46,7 @@
                                                 {{ \Carbon\Carbon::parse($item->horario_fim)->format('H:i') }}</span>
                                         </div>
                                         <div class="table-actions">
-                                            @if($item->status != "nao_compareceu" && $item->status != 'concluído')
+                                            @if($item->status != "nao_compareceu" && $item->status != 'concluido')
                                                 <button data-id="{{ $item->id }}" onclick="concluirAgendamento(this)"
                                                     class="btn-action done" title="Finalizar Atendimento">
                                                     <i class="fa-solid fa-file-circle-check"></i>
@@ -133,7 +133,7 @@
                                                 <strong>{{$item->paciente->nome}}</strong>
                                                 <span>{{ $hora }}</span>
                                                 <div class="slot-actions">
-                                                    @if($item->status != "nao_compareceu" && $item->status != 'concluído')
+                                                    @if($item->status != "nao_compareceu" && $item->status != 'concluido')
                                                         <button onclick="concluirAgendamento(this)" data-id="{{ $item->id }}" class="action-mini done" title="Finalizar">
                                                             <i class="fa-solid fa-file-circle-check"></i>
                                                         </button>

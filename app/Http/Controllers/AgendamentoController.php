@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Agendamento\CancelarAgendamento;
+use App\Actions\Agendamento\ConcluirAgendamento;
+use App\Actions\Agendamento\MarcaFaltaAgendamento;
+use App\Exceptions\ConcluirAgendamentoException;
+use App\Exceptions\MarcaFaltaAgendamentoException;
 use App\Http\Requests\StoreAgendamentoRequest;
 use App\Models\Agendamento;
 use App\Models\Paciente;
@@ -79,6 +83,26 @@ class AgendamentoController extends Controller
             (new CancelarAgendamento())->execute($id);
             return redirect()->back()->with('success', 'Agendamento cancelado com sucesso.');
         } catch (CancelarAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function concluirAgendamento($id, ConcluirAgendamento $action)
+    {
+        try {
+            $action->execute($id);
+            return back()->with('success', "Agendamento concluido com sucesso!");
+        } catch (ConcluirAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function faltaAgendamento($id, MarcaFaltaAgendamento $action)
+    {
+        try {
+            $action->execute($id);
+            return back()->with('success', "Falta marcada com sucesso!");
+        } catch (MarcaFaltaAgendamentoException $e) {
             return back()->with('error', $e->getMessage());
         }
     }

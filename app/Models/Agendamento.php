@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusAgendamento;
 use App\Traits\FiltraAgendamentosPorAcesso;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -56,7 +57,7 @@ class Agendamento extends Model
 
     public function scopeAtivos($query)
     {
-        return $query->whereIn('status', ['agendado', 'confirmado','concluído','nao_compareceu']);
+        return $query->whereIn('status', ['agendado', 'confirmado', 'concluido', 'nao_compareceu']);
     }
 
     public function getDataFormatadaAttribute()
@@ -82,13 +83,6 @@ class Agendamento extends Model
 
     public function getStatusLabelAttribute()
     {
-        return match ($this->status) {
-            'agendado' => 'Agendado',
-            'confirmado' => 'Confirmado',
-            'concluído' => 'Concluído',
-            'cancelado' => 'Cancelado',
-            'nao_compareceu' => 'Não compareceu',
-            default => ucfirst($this->status),
-        };
+        return StatusAgendamento::from($this->status)->label();
     }
 }

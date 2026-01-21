@@ -12,14 +12,14 @@ class CancelarAgendamento
 {
     public function execute(int $agendamentoId)
     {
-        $agendemanto = Agendamento::findOrFail($agendamentoId);
+        $agendamento = Agendamento::findOrFail($agendamentoId);
 
-        $horario = Carbon::parse($agendemanto->data->toDateString() . ' ' . $agendemanto->horario_inicio);
+        $horario = Carbon::parse($agendamento->data->toDateString() . ' ' . $agendamento->horario_inicio);
         if (now()->diffInMinutes($horario, false) < 60) {
             throw new CancelarAgendamentoException('Cancelamento permitido apenas com 1 hora de antecedencia');
         }
 
-        $agendemanto->update([
+        $agendamento->update([
             'status' => 'cancelado'
         ]);
     }
