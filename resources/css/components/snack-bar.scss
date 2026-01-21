@@ -1,0 +1,81 @@
+@use '../abstracts/variables' as *;
+
+#snack-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.snack {
+    min-width: 300px;
+    max-width: 450px;
+    background: $color-light;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid $color-gray;
+    animation: snack-slide-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+
+    .snack-icon {
+        font-size: 1.2rem;
+    }
+
+    .snack-content {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: $color-dark;
+        flex: 1;
+    }
+
+    .snack-close {
+        color: $color-gray;
+        opacity: 0.5;
+        font-size: 1.2rem;
+    }
+
+    // Cores baseadas nos tipos
+    &.snack-success {
+        border-color: $color-success;
+
+        .snack-icon {
+            color: $color-success;
+        }
+    }
+
+    &.snack-error {
+        border-color: $color-danger;
+
+        .snack-icon {
+            color: $color-danger;
+        }
+    }
+
+    &.snack-warning {
+        border-color: #f59e0b;
+
+        .snack-icon {
+            color: #f59e0b;
+        }
+    }
+}
+
+@keyframes snack-slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

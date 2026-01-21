@@ -14,11 +14,7 @@
     <div class="dashboard-content">
         @include('dashboard.partials.topbar')
         <main class="dashboard-main">
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
+            <x-snack-bar/>
             @yield('content')
         </main>
     </div>

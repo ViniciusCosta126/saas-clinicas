@@ -24,6 +24,16 @@ window.addEventListener("DOMContentLoaded", () => {
             document.body.style.overflow = 'auto';
         }, 200);
     }
+
+    const snacks = document.querySelectorAll('.snack');
+
+    snacks.forEach(snack => {
+        setTimeout(() => {
+            snack.style.transform = "translateX(120%)";
+            snack.style.transition = "0.5s";
+            setTimeout(() => snack.remove(), 500);
+        }, 5000);
+    });
 })
 
 window.buscarHorariosLivres = () => {
