@@ -70,13 +70,6 @@ class AgendamentoController extends Controller
         return back()->with('success', 'Agendamento realizado com sucesso!');
     }
 
-    public function alteraStatusAtendimento(Agendamento $agendamento, Request $request)
-    {
-        $agendamento->status = $request->status;
-        $agendamento->save();
-        return back()->with('success', 'Status do agendamento alterado com sucesso!');
-    }
-
     public function cancelarAgendamento($id)
     {
         try {

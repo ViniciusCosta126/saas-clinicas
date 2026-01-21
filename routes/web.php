@@ -65,6 +65,5 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::put('/cancelar-agendamento/{id}',[AgendamentoController::class,'cancelarAgendamento']);
         Route::put('/{id}/concluir',[AgendamentoController::class,'concluirAgendamento']);
         Route::put('/{id}/falta',[AgendamentoController::class,"faltaAgendamento"]);
-        Route::put('/altera-status-atendimento/{agendamento}',[AgendamentoController::class,'alteraStatusAtendimento']);
     });
 });
