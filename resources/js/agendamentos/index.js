@@ -20,7 +20,7 @@ window.cancelaAgendamento = (button) => {
     openModal('cancelaAtendimento')
     const id = button.getAttribute('data-id');
     const form = document.getElementById('cancelaAtendimentoForm');
-    form.action = `/agendamento/altera-status-atendimento/${id}`;
+    form.action = `/agendamento/cancelar-agendamento/${id}`;
 }
 
 window.confirmarPresenca = (button) => {

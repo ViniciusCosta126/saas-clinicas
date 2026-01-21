@@ -14,6 +14,11 @@
     <div class="dashboard-content">
         @include('dashboard.partials.topbar')
         <main class="dashboard-main">
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>

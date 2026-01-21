@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Agendamento\CancelarAgendamento;
 use App\Http\Requests\StoreAgendamentoRequest;
 use App\Models\Agendamento;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use App\Exceptions\CancelarAgendamentoException;
 
 class AgendamentoController extends Controller
 {
@@ -71,4 +73,13 @@ class AgendamentoController extends Controller
         return back()->with('success', 'Status do agendamento alterado com sucesso!');
     }
 
+    public function cancelarAgendamento($id)
+    {
+        try {
+            (new CancelarAgendamento())->execute($id);
+            return redirect()->back()->with('success', 'Agendamento cancelado com sucesso.');
+        } catch (CancelarAgendamentoException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
 }
