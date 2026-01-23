@@ -27,13 +27,13 @@ class EditarProfissional
             throw new EditarProfissionalException("Você não tem acesso para editar este profisisonal");
         }
 
-        if ($dados['preco_sessao'] > $profissional->clinica->preco_maximo_sessao) {
+        if ($dados['preco_sessao'] > $profissional->clinica->preco_max_consulta) {
             throw new EditarProfissionalException(
                 'O valor da sessão ultrapassa o limite permitido pela clínica.'
             );
         }
 
-        if ($dados['preco_sessao'] < $profissional->clinica->preco_minimo_sessao) {
+        if ($dados['preco_sessao'] < $profissional->clinica->preco_min_consulta) {
             throw new EditarProfissionalException(
                 'O valor da sessão é menor que o minimo autorizado pela clinica.'
             );

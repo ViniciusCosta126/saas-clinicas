@@ -40,7 +40,7 @@ class ProfissionaisController extends Controller
             $action->execute($id, $request->validated());
             return back()->with('success', "Profissional alterado com sucesso!");
         } catch (EditarProfissionalException $e) {
-            return back()->with('danger', $e->getMessage());
+            return back()->with('error', $e->getMessage());
         }
     }
 

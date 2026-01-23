@@ -31,7 +31,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
     Route::prefix('clinica')->group(function () {
         Route::get('/', [ClinicaController::class, "index"])->name('clinica.index');
         Route::get('/configuracoes-clinica', [ClinicaController::class, 'getConfiguracoesClinica'])->middleware('permission:config.manage')->name('config.manage');
-        Route::put('/configuracoes-clinica/{clinica}', [ClinicaController::class, ' '])->middleware('permission:config.manage')->name('clinica.update');
+        Route::put('/configuracoes-clinica/{clinica}', [ClinicaController::class, 'update'])->middleware('permission:config.manage')->name('clinica.update');
     });
 
     Route::prefix('usuarios')->group(function () {

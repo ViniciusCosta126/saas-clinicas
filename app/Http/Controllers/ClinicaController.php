@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Clinica\EditarClinica;
+use App\Exceptions\EditarClinicaException;
 use App\Http\Requests\UpdateClinicaRequest;
 use App\Models\Clinica;
 use Illuminate\Http\Request;
@@ -19,14 +21,13 @@ class ClinicaController extends Controller
         return view('dashboard.clinica.update', compact('clinica'));
     }
 
-    public function update(UpdateClinicaRequest $request)
+    public function update(int $clinica, UpdateClinicaRequest $request, EditarClinica $action)
     {
-
-        $clinica = auth()->user()->clinica;
-        $clinica->update($request->validated());
-
-        return redirect()
-            ->route('clinica.index')
-            ->with('success', 'Dados da clínica atualizados com sucesso!');
+        try {
+            $action->execute($clinica, $request->validated());
+            return back()->with('success', 'Dados da clínica atualizados com sucesso!');
+        } catch (EditarClinicaException $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }
