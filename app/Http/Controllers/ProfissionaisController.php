@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Profissionais\EditarProfissional;
+use App\Actions\Profissionais\ExcluirProfissional;
 use App\Exceptions\EditarProfissionalException;
+use App\Exceptions\ExcluirProfissionalException;
 use App\Http\Requests\EditarProfissionalRequest;
 use App\Http\Requests\StoreProfissional;
 use App\Models\Agendamento;
@@ -28,10 +30,14 @@ class ProfissionaisController extends Controller
         return to_route("profissionais.index");
     }
 
-    public function delete(Profissional $profissional)
+    public function delete(int $profissional, ExcluirProfissional $action)
     {
-        $profissional->delete();
-        return to_route("profissionais.index");
+        try {
+            $action->execute($profissional);
+            return back()->with('success', "Profissional apagado com sucesso!");
+        } catch (ExcluirProfissionalException $th) {
+            return back()->with("error", $th->getMessage());
+        }
     }
 
     public function update(int $id, EditarProfissionalRequest $request, EditarProfissional $action)
