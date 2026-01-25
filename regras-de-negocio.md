@@ -49,3 +49,4 @@ Um profissional nao pode ter:
 - Sessao igual 0
 - Sessao maior que o valor maximo estipulado pela clinica
 - Sessao menor que o valor minimo estipulado pela clinica
+

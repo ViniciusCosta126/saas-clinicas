@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Profissionais\CriarProfissional;
 use App\Actions\Profissionais\EditarProfissional;
 use App\Actions\Profissionais\ExcluirProfissional;
+use App\Exceptions\CriarProfissionalException;
 use App\Exceptions\EditarProfissionalException;
 use App\Exceptions\ExcluirProfissionalException;
 use App\Http\Requests\EditarProfissionalRequest;
@@ -23,11 +25,14 @@ class ProfissionaisController extends Controller
         return view('dashboard.profissionais.index', compact('profissionais', 'usuarios'));
     }
 
-    public function store(StoreProfissional $request)
+    public function store(StoreProfissional $request,CriarProfissional $action)
     {
-        $dados = $request->validated();
-        $profissional = Profissional::create($dados);
-        return to_route("profissionais.index");
+        try {
+            $action->execute($request->validated());
+            return back()->with('success',"Profissional foi criado com sucesso!");
+        } catch (CriarProfissionalException $e) {
+            return back()->with('error',$e->getMessage());
+        }
     }
 
     public function delete(int $profissional, ExcluirProfissional $action)

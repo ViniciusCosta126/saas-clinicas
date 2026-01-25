@@ -21,7 +21,7 @@ class ExcluirProfissional
     private function validarRegrasDeNegocios(int $id)
     {
         $agendamentos = Agendamento::where('profissional_id', $id)
-            ->whereNotIn(['status', [StatusAgendamento::CONCLUIDO->value, StatusAgendamento::NAO_COMPARECEU->value, StatusAgendamento::CANCELADO->value]])
+            ->whereNotIn('status', [StatusAgendamento::CONCLUIDO->value, StatusAgendamento::NAO_COMPARECEU->value, StatusAgendamento::CANCELADO->value])
             ->exists();
 
         if ($agendamentos) {
