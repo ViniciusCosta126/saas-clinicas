@@ -12,12 +12,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $nome_responsavel
  * @property string $email
  * @property string $telefone
+ * @property string $preco_min_consulta
+ * @property string $preco_max_consulta
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
 class Clinica extends Model
 {
-    protected $fillable = ['nome_responsavel', 'nome_clinica', 'email', 'telefone'];
+    protected $fillable = ['nome_responsavel', 'nome_clinica', 'email', 'telefone', 'preco_min_consulta', 'preco_max_consulta'];
+    protected $casts = [
+        'preco_min_consulta' => "decimal:2",
+        'preco_max_consulta' => "decimal:2"
+    ];
 
     public function users()
     {

@@ -20,6 +20,8 @@ class UpdateClinicaRequest extends FormRequest
             'nome_responsavel' => 'required|string|max:255',
             'email' => "required|email|unique:clinicas,email,{$clinicaId}",
             'telefone' => 'required|string|size:11',
+            'preco_min_consulta' => 'required|numeric|min:1',
+            'preco_max_consulta' => 'required|numeric|min:1',
         ];
     }
 
@@ -32,6 +34,10 @@ class UpdateClinicaRequest extends FormRequest
             'email.unique' => 'Este e-mail já está em uso.',
             'telefone.required' => 'O telefone é obrigatório.',
             'telefone.size' => 'O telefone deve ter 11 dígitos.',
+            'preco_min_sessao.required' => 'Informe o preço mínimo da sessão.',
+            'preco_max_sessao.required' => 'Informe o preço máximo da sessão.',
+            'preco_min_sessao.numeric'  => 'O preço mínimo da sessão deve ser um valor numérico.',
+            'preco_max_sessao.numeric' => 'O preço máximo da sessão deve ser um valor numérico.',
         ];
     }
 }

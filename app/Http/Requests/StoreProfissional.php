@@ -27,7 +27,7 @@ class StoreProfissional extends FormRequest
             "nome" => "required|string|max:255",
             'email' => "required|email|unique:profissionais,email,NULL,id,clinica_id,{$clinicaId},deleted_at,NULL",
             "especialidade" => "required|string|max:255",
-            "preco_sessao" => "required|numeric",
+            "preco_sessao" => "required|numeric|min:0",
             "clinica_id" => "exists:clinicas,id",
             "user_id" => "exists:users,id|required"
         ];
@@ -49,6 +49,7 @@ class StoreProfissional extends FormRequest
 
             'preco_sessao.required' => 'O preço da sessão é obrigatório.',
             'preco_sessao.numeric' => 'O preço da sessão deve ser um valor numérico.',
+            'preco_sessao.min' => "O preco da sessao deve ser maior que zero",
 
             'clinica_id.exists' => 'A clínica informada não é válida.',
             "user_id.exists" => "O usuario informado não é valido",

@@ -36,3 +36,17 @@ Uma clínica pode possuir:
 - vários pacientes
 - vários profissionais
 - Um administrador pode também atuar como profissional
+
+#### Profissional
+Todo profissional deve ter:
+- Nome
+- Email
+- Especialidade
+- Preco de sessao
+- Clinica
+
+Um profissional nao pode ter:
+- Sessao igual 0
+- Sessao maior que o valor maximo estipulado pela clinica
+- Sessao menor que o valor minimo estipulado pela clinica
+

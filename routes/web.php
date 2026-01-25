@@ -31,7 +31,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
     Route::prefix('clinica')->group(function () {
         Route::get('/', [ClinicaController::class, "index"])->name('clinica.index');
         Route::get('/configuracoes-clinica', [ClinicaController::class, 'getConfiguracoesClinica'])->middleware('permission:config.manage')->name('config.manage');
-        Route::put('/configuracoes-clinica/{clinica}', [ClinicaController::class, ' '])->middleware('permission:config.manage')->name('clinica.update');
+        Route::put('/configuracoes-clinica/{clinica}', [ClinicaController::class, 'update'])->middleware('permission:config.manage')->name('clinica.update');
     });
 
     Route::prefix('usuarios')->group(function () {
@@ -48,7 +48,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::get('/', [ProfissionaisController::class, 'index'])->middleware('permission:profissionais.manage')->name("profissionais.index");
         Route::post('/', [ProfissionaisController::class, 'store'])->middleware('permission:profissionais.manage')->name("profissionais.store");
         Route::delete('/{profissional}', [ProfissionaisController::class, 'delete'])->middleware('permission:profissionais.manage')->name("profissionais.delete");
-        Route::put("/update/{profissional}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage');
+        Route::put("/update/{id}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage');
         Route::get('/horarios-disponiveis', [ProfissionaisController::class, 'buscarHorarios'])->name('profissionais.horarios');
     });
 
