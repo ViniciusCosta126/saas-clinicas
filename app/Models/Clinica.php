@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Clinica extends Model
 {
+    use HasFactory;
     protected $fillable = ['nome_responsavel', 'nome_clinica', 'email', 'telefone', 'preco_min_consulta', 'preco_max_consulta'];
     protected $casts = [
         'preco_min_consulta' => "decimal:2",
