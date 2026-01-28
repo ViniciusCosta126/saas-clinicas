@@ -21,11 +21,11 @@ class ProfissionalFactory extends Factory
         ];
     }
 
-    public function paraClinica(Clinica $clinica)
+    public function paraClinica(Clinica $clinica, ?User $user = null)
     {
-        return $this->state(function () use ($clinica) {
+        return $this->state(function () use ($clinica, $user) {
 
-            $user = User::factory()
+            $user = $user ?? User::factory()
                 ->paraClinica($clinica)
                 ->create();
 

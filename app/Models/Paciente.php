@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\FiltraPacientesPorAcesso;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Paciente extends Model
 {
-    use FiltraPacientesPorAcesso;
+    use FiltraPacientesPorAcesso,HasFactory;
     protected $table = "pacientes";
     protected $fillable = [
         'clinica_id',
