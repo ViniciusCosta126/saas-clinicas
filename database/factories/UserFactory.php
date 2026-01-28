@@ -34,6 +34,13 @@ class UserFactory extends Factory
         ];
     }
 
+
+    public function paraClinica(Clinica $clinica)
+    {
+        return $this->state(fn() => [
+            'clinica_id' => $clinica->id,
+        ]);
+    }
     /**
      * Indicate that the model's email address should be unverified.
      */
