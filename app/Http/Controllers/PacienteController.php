@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Paciente\DeletarPaciente;
+use App\Exceptions\DeletarPacienteException;
 use App\Http\Requests\StoreRequestPaciente;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
@@ -28,10 +30,14 @@ class PacienteController extends Controller
         return to_route("pacientes.index");
     }
 
-    public function delete(Paciente $paciente)
+    public function delete(int $paciente,DeletarPaciente $action)
     {
-        $paciente->delete();
-        return to_route("pacientes.index");
+        try {
+            $action->execute($paciente);
+            return back()->with('success',"Paciente deletado com sucesso.");
+        } catch (DeletarPacienteException $e) {
+            return back()->with("error",$e->getMessage());
+        }
     }
 
     public function update(Paciente $paciente, StoreRequestPaciente $request)
