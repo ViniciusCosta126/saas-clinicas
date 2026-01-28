@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Paciente\CriarPacienteAction;
 use App\Actions\Paciente\DeletarPaciente;
+use App\Exceptions\CriarPacienteException;
 use App\Exceptions\DeletarPacienteException;
 use App\Http\Requests\StoreRequestPaciente;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteController extends Controller
 {
@@ -16,27 +19,23 @@ class PacienteController extends Controller
         return view('dashboard.pacientes.index', compact('pacientes'));
     }
 
-    public function store(StoreRequestPaciente $request)
+    public function store(StoreRequestPaciente $request, CriarPacienteAction $criarPaciente)
     {
-        $dados = $request->validated();
-        $paciente = Paciente::create($dados);
-        $profissional = auth()->user()->profissional;
-
-        $paciente->profissionais()->attach($profissional->id, [
-            'clinica_id' => auth()->user()->clinica_id,
-            'iniciado_em' => now(),
-        ]);
-
-        return to_route("pacientes.index");
+        try {
+            $criarPaciente->execute($request->validated(), Auth::user()->clinica_id, Auth::user()->profissional->id);
+            return back()->with('success', "Paciente Criado com sucesso");
+        } catch (CriarPacienteException $e) {
+            return back()->with("error", $e->getMessage());
+        }
     }
 
-    public function delete(int $paciente,DeletarPaciente $action)
+    public function delete(int $paciente, DeletarPaciente $action)
     {
         try {
             $action->execute($paciente);
-            return back()->with('success',"Paciente deletado com sucesso.");
+            return back()->with('success', "Paciente deletado com sucesso.");
         } catch (DeletarPacienteException $e) {
-            return back()->with("error",$e->getMessage());
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -48,5 +47,4 @@ class PacienteController extends Controller
         return to_route('pacientes.index')
             ->with('success', 'Paciente atualizado com sucesso!');
     }
-
 }
