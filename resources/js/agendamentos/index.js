@@ -27,7 +27,7 @@ window.confirmarPresenca = (button) => {
     openModal('confirmaPresencaAtendimento')
     const id = button.getAttribute('data-id');
     const form = document.getElementById('confirmaPresencaAtendimentoForm');
-    form.action = `/agendamento/altera-status-atendimento/${id}`;
+    form.action = `/agendamento/${id}/presenca`;
 }
 
 window.concluirAgendamento = (button) => {
