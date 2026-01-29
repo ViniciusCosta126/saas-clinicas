@@ -4,7 +4,7 @@
         @csrf
         <input type="hidden" name="clinica_id" id="clinica_id" value="{{ auth()->user()->clinica->id }}">
         <input type="hidden" name="profissional_id" id="profissional_id" value="{{ auth()->user()->profissional->id }}">
-
+        <input type="hidden" name="status" value="agendado" id="status">
         <div class="form-grid">
             <div class="form-group full-width">
                 <label for="nome_paciente">Paciente</label>

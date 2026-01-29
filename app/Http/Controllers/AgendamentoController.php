@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Actions\Agendamento\CancelarAgendamento;
 use App\Actions\Agendamento\ConcluirAgendamento;
+use App\Actions\Agendamento\ConfirmaPresenca;
 use App\Actions\Agendamento\CriarAgendamento;
 use App\Actions\Agendamento\MarcaFaltaAgendamento;
 use App\Exceptions\ConcluirAgendamentoException;
+use App\Exceptions\ConfirmaAgendamentoException;
 use App\Exceptions\CriarAgendamentoException;
 use App\Exceptions\MarcaFaltaAgendamentoException;
 use App\Http\Requests\StoreAgendamentoRequest;
@@ -63,7 +65,7 @@ class AgendamentoController extends Controller
         }
     }
 
-    public function cancelarAgendamento($id)
+    public function cancelarAgendamento(int $id)
     {
         try {
             (new CancelarAgendamento())->execute($id);
@@ -73,7 +75,7 @@ class AgendamentoController extends Controller
         }
     }
 
-    public function concluirAgendamento($id, ConcluirAgendamento $action)
+    public function concluirAgendamento(int $id, ConcluirAgendamento $action)
     {
         try {
             $action->execute($id);
@@ -83,13 +85,23 @@ class AgendamentoController extends Controller
         }
     }
 
-    public function faltaAgendamento($id, MarcaFaltaAgendamento $action)
+    public function faltaAgendamento(int $id, MarcaFaltaAgendamento $action)
     {
         try {
             $action->execute($id);
             return back()->with('success', "Falta marcada com sucesso!");
         } catch (MarcaFaltaAgendamentoException $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function presencaAgendamento(int $id, ConfirmaPresenca $action)
+    {
+        try {
+            $action->execute($id);
+            return back()->with("success", "Presença confirmada com sucesso.");
+        } catch (ConfirmaAgendamentoException $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 }
