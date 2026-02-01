@@ -30,15 +30,28 @@ class AlterarStatusAgendamentoTest extends TestCase
         parent::setUp();
         $this->criarContextoClinica();
     }
-    public function test_deve_alterar_o_status_do_agendamento_para_confirmado_quando_confirmar_presenca()
+
+    protected function tearDown(): void
     {
-        $agendamento = (new CriarAgendamento())->execute([
+        parent::tearDown();
+        Carbon::setTestNow();
+    }
+
+    private function criarAgendamento(
+        string $inicio = '17:00',
+        string $fim = '18:00'
+    ) {
+        return (new CriarAgendamento())->execute([
             'profissional_id' => $this->profissional->id,
             'paciente_id' => $this->paciente->id,
             'data' => now()->toDateString(),
-            'horario_inicio' => '10:00',
-            'horario_fim' => "11:00",
+            'horario_inicio' => $inicio,
+            'horario_fim' => $fim,
         ]);
+    }
+    public function test_deve_alterar_o_status_do_agendamento_para_confirmado_quando_confirmar_presenca()
+    {
+        $agendamento = $this->criarAgendamento();
 
         (new ConfirmaPresenca())->execute($agendamento->id);
 
@@ -54,13 +67,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(8, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '14:00',
-            'horario_fim' => "15:00",
-        ]);
+        $agendamento = $this->criarAgendamento('14:00', '15:00');
 
         (new CancelarAgendamento())->execute($agendamento->id);
 
@@ -75,13 +82,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(16, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         $this->expectException(CancelarAgendamentoException::class);
         (new CancelarAgendamento())->execute($agendamento->id);
@@ -93,13 +94,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(15, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         (new CancelarAgendamento())->execute($agendamento->id);
 
@@ -115,13 +110,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(15, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         $this->expectException(MarcaFaltaAgendamentoException::class);
         (new MarcaFaltaAgendamento())->execute($agendamento->id);
@@ -133,13 +122,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(18, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         (new MarcaFaltaAgendamento())->execute($agendamento->id);
         $this->assertDatabaseHas('agendamentos', [
@@ -154,13 +137,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(15, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         (new CancelarAgendamento())->execute($agendamento->id);
 
@@ -174,13 +151,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(15, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         (new ConcluirAgendamento())->execute($agendamento->id);
 
@@ -194,13 +165,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(18, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         (new MarcaFaltaAgendamento())->execute($agendamento->id);
 
@@ -214,13 +179,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(8, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         (new CancelarAgendamento())->execute($agendamento->id);
 
@@ -234,13 +193,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(8, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
+        $agendamento = $this->criarAgendamento();
 
         (new ConcluirAgendamento())->execute($agendamento->id);
 
@@ -255,14 +208,7 @@ class AlterarStatusAgendamentoTest extends TestCase
             now()->setTime(8, 30)
         );
 
-        $agendamento = (new CriarAgendamento())->execute([
-            'profissional_id' => $this->profissional->id,
-            'paciente_id' => $this->paciente->id,
-            'data' => now()->toDateString(),
-            'horario_inicio' => '17:00',
-            'horario_fim' => "18:00",
-        ]);
-
+        $agendamento = $this->criarAgendamento();
         (new ConcluirAgendamento())->execute($agendamento->id);
 
         $this->assertDatabaseHas('agendamentos', [
