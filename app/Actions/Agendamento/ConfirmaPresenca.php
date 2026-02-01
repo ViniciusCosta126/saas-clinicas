@@ -3,6 +3,7 @@
 namespace App\Actions\Agendamento;
 
 use App\Enums\StatusAgendamento;
+use App\Exceptions\ConfirmaAgendamentoException;
 use App\Exceptions\CriarAgendamentoException;
 use App\Models\Agendamento;
 
@@ -21,11 +22,11 @@ class ConfirmaPresenca
     private function validaRegrasDeNegocio(Agendamento $agendamento)
     {
         if ($agendamento->status === StatusAgendamento::CANCELADO->value) {
-            throw new CriarAgendamentoException('Você não pode confirmar presença de um agendamento cancelado.');
+            throw new ConfirmaAgendamentoException('Você não pode confirmar presença de um agendamento cancelado.');
         }
 
         if ($agendamento->status === StatusAgendamento::CONCLUIDO->value) {
-            throw new CriarAgendamentoException('Você não pode confirmar presença de um agendamento concluido.');
+            throw new ConfirmaAgendamentoException('Você não pode confirmar presença de um agendamento concluido.');
         }
     }
 }
