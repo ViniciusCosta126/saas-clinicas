@@ -48,7 +48,7 @@ Este projeto foi desenvolvido com foco em **boas práticas**, **organização de
 - **PHP 8.2**
 - **Laravel**
 - **MySQL**
-- **Blade**
+- **React/Inertia**
 - **SCSS**
 - **PHPUnit**
 - **Carbon**
