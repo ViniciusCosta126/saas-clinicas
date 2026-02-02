@@ -6,16 +6,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
-    @vite(['resources/css/dashboard/dashboard.scss', 'resources/js/dashboard.js'])
+    @vite(['resources/css/dashboard/dashboard.scss', 'resources/js/dashboard.js','resources/js/app.tsx'])
+    @inertiaHead
 </head>
 
 <body class="dashboard">
-    @include('dashboard.partials.sidebar')
+    <!-- @include('dashboard.partials.sidebar') -->
     <div class="dashboard-content">
-        @include('dashboard.partials.topbar')
+        <!-- @include('dashboard.partials.topbar') -->
         <main class="dashboard-main">
-            <x-snack-bar/>
-            @yield('content')
+            <!-- <x-snack-bar/> -->
+
+            @inertia
+            <!-- @yield('content') -->
         </main>
     </div>
 </body>

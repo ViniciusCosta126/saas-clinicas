@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfissionaisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInviteController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 
 //Rotas deslogadas
@@ -27,6 +28,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'index']);
     });
+
 
     Route::prefix('clinica')->group(function () {
         Route::get('/', [ClinicaController::class, "index"])->name('clinica.index');
