@@ -90,4 +90,9 @@ class User extends Authenticatable
         $permissions = config("roles.$role", []);
         return in_array($permission, $permissions);
     }
+
+    public function permissions():array{
+        $role = $this->role;
+        return config("roles.$role", []);
+    }
 }

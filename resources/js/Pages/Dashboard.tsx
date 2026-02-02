@@ -1,13 +1,18 @@
 import React from 'react'
+import DashboardLayout from '../Layouts/DashboardLayout'
+import Kpis from '../components/common/Kpis'
 
-export default function Dashboard() {
+
+interface DashBoardProps {
+  profissionais: number,
+  pacientes: number,
+  agendamentos: number
+}
+export default function Dashboard({ profissionais, pacientes, agendamentos }: DashBoardProps) {
+
   return (
-    <>
-      <div className="p-6">
-        <h1 className="text-2xl font-bold">
-          Dashboard Inertia + React 🚀
-        </h1>
-      </div>
-    </>
+    <DashboardLayout>
+      <Kpis profissionais={profissionais} pacientes={pacientes} agendamentos={agendamentos} />
+    </DashboardLayout>
   )
 }

@@ -17,7 +17,6 @@ class DashboardController extends Controller
         $pacientes = Paciente::visiveis()->get()->count();
         $agendamentos = Agendamento::doDia(Carbon::today()->format('Y-m-d'))->ativos()->count();
 
-        return Inertia::render('Dashboard');
-        return view('dashboard.index', compact('profissionais', 'pacientes', 'agendamentos'));
+        return Inertia::render('Dashboard', ['profissionais' => $profissionais, 'pacientes' => $pacientes, "agendamentos" => $agendamentos]);
     }
 }
