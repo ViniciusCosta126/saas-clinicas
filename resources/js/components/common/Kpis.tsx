@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 interface KpisProps {
     profissionais: number,
     pacientes: number,
