@@ -6,7 +6,7 @@ import FormEditClinica from "../../components/Clinica/FormEditClinica";
 import { usePage } from "@inertiajs/react";
 
 export default function Update(){
-    const {auth} = usePage().props
+    const {auth} = usePage().props as any
     return (
         <DashboardLayout>
             <PageHeader titulo="Editar Clínica" subtitulo="Atualize as informações cadastrais e de contato."/>

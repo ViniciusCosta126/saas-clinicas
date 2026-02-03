@@ -13,8 +13,7 @@ class ClinicaController extends Controller
 {
     public function index()
     {
-        $clinica = auth()->user()->clinica;
-        return view('dashboard.clinica.index', compact('clinica'));
+        return Inertia::render('Clinica/Index');
     }
     public function getConfiguracoesClinica()
     {
