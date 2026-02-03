@@ -1,5 +1,6 @@
 import { Link, usePage } from "@inertiajs/react";
 import React from "react";
+import { route } from "ziggy-js";
 
 export default function Sidebar() {
     const { auth } = usePage().props as any
@@ -18,39 +19,39 @@ export default function Sidebar() {
                     Dashboard
                 </Link>
 
-                <Link href="/agendamentos">
+                <Link href={route('agendamento.index')}>
                     <i className="fa-solid fa-calendar-days"></i>
                     Agenda
                 </Link>
 
                 {can('pacientes.manage') && (
-                    <Link href="/pacientes">
+                    <Link href={route('pacientes.index')}>
                         <i className="fa-solid fa-user-injured"></i>
                         Pacientes
                     </Link>
                 )}
 
                 {can('profissionais.manage') && (
-                    <Link href="/profissionais">
+                    <Link href={route('profissionais.index')}>
                         <i className="fa-solid fa-user-doctor"></i>
                         Profissionais
                     </Link>
                 )}
 
-                <Link href="#">
+                {/* <Link href="#">
                     <i className="fa-solid fa-money-bill-trend-up"></i>
                     Financeiro
-                </Link>
+                </Link> */}
 
                 {can('config.manage') && (
-                    <Link href="/clinica/configuracoes-clinica">
+                    <Link href={route('config.manage')}>
                         <i className="fa-solid fa-gear"></i>
                         Configurações
                     </Link>
                 )}
 
                 {can('usuarios') && (
-                    <Link href="/usuarios">
+                    <Link href={route('usuarios.index')}>
                         <i className="fa-solid fa-user"></i>
                         Usuários
                     </Link>

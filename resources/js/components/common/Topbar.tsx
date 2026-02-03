@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
+import { route } from "ziggy-js";
 
 export default function Topbar() {
     const { auth } = usePage().props as any
@@ -43,8 +44,8 @@ export default function Topbar() {
                     <i className="fa-solid fa-chevron-down user-dropdown-icon"></i>
 
                     <div className="topbar-user-dropdown">
-                        <a href="{{ route('meu-perfil') }}"><i className="fa-regular fa-user"></i> Meu Perfil</a>
-                        <a href="{{ route('clinica.index') }}"><i className="fa-solid fa-hospital"></i> Dados da Clínica</a>
+                        <a href={route('meu-perfil')}><i className="fa-regular fa-user"></i> Meu Perfil</a>
+                        <a href={route('clinica.index')}><i className="fa-solid fa-hospital"></i> Dados da Clínica</a>
                         <hr />
                         <a href="/logout" className="logout"><i className="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
                     </div>

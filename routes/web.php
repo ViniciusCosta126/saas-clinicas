@@ -24,7 +24,7 @@ Route::post('/criar-conta-convite/{convite}', [HomeController::class, "postCriar
 
 //Rotas Logadas
 Route::middleware(['auth', 'has.clinica'])->group(function () {
-    Route::get('/logout', [HomeController::class, 'logout']);
+    Route::get('/logout', [HomeController::class, 'logout'])->name("logout");
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'index']);
     });
