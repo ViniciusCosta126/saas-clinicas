@@ -6,4 +6,5 @@ export interface IClinica {
     email: string;
     preco_min_consulta: number;
     preco_max_consulta: number;
+    created_at:string
 }

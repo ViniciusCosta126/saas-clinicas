@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import { IPageProps } from "../../Types/PageProps";
 
 export default function Topbar() {
-    const { auth } = usePage().props as any
+    const { auth } = usePage<IPageProps>().props
 
     const [open, setOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ export default function Topbar() {
     return (
         <header className="topbar">
             <div className="topbar-left">
-                <h2 className="clinic-name">{auth.clinica.nome_clinica}</h2>
+                <h2 className="clinic-name">{auth.clinica?.nome_clinica}</h2>
             </div>
 
             <div className="topbar-right">

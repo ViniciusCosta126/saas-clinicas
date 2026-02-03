@@ -1,9 +1,10 @@
 import { Link, usePage } from "@inertiajs/react";
 import React from "react";
 import { route } from "ziggy-js";
+import { IPageProps } from "../../Types/PageProps";
 
 export default function Sidebar() {
-    const { auth } = usePage().props as any
+    const { auth } = usePage<IPageProps>().props
 
     const permissions: string[] = auth?.permissions ?? [];
 

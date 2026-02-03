@@ -8,7 +8,7 @@ export function formatDateBr(date: string | Date | null | undefined): string {
 }
 
 export function padLeft(
-    value: string | number,
+    value: string | number | undefined,
     length: number,
     char: string = '0'
 ): string {

@@ -2,11 +2,12 @@ import React from 'react'
 import { usePage } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
 import '../../../css/components/snack-bar.scss'
+import { IPageProps } from '../../Types/PageProps'
 
 type FlashType = 'success' | 'error' | 'warning' | 'info'
 
 export default function Snackbar() {
-    const { auth } = usePage().props as any
+    const { auth } = usePage<IPageProps>().props
     const flash = auth?.flash
 
     const [type, setType] = useState<FlashType | null>(null)
@@ -18,17 +19,21 @@ export default function Snackbar() {
         const found = (Object.keys(flash) as FlashType[])
             .find(key => flash[key])
 
-        if (found) {
-            setType(found)
-            setMessage(flash[found])
+        if (!found) return
 
-            const timer = setTimeout(() => {
-                setType(null)
-                setMessage(null)
-            }, 4000)
+        const value = flash[found]
 
-            return () => clearTimeout(timer)
-        }
+        if (!value) return
+
+        setType(found)
+        setMessage(value)
+
+        const timer = setTimeout(() => {
+            setType(null)
+            setMessage(null)
+        }, 4000)
+
+        return () => clearTimeout(timer)
     }, [flash])
 
     if (!type || !message) return null
