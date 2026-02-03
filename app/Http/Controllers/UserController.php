@@ -19,8 +19,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $usuarios = User::paginate(10);
-        return view('dashboard.usuarios.index', compact('usuarios'));
+        $usuarios = User::paginate(25);
+
+        return Inertia::render('Usuarios/Index',["usuarios"=>$usuarios]);
     }
     public function show()
     {

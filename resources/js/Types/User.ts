@@ -5,5 +5,6 @@ export interface IUser {
     telefone: string,
     cpf: string,
     role: string,
-    clinica_id: number
+    clinica_id: number,
+    created_at:string
 }
