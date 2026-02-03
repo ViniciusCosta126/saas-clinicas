@@ -49,6 +49,9 @@ export default function FormEditClinica({ clinica }: Props) {
                             onChange={e => setData("nome_responsavel", e.target.value)}
                         />
                     </div>
+                    {errors.nome_responsavel && (
+                        <span className="error-message">{errors.nome_responsavel}</span>
+                    )}
                 </div>
 
                 <div className="form-group">
@@ -57,10 +60,13 @@ export default function FormEditClinica({ clinica }: Props) {
                         <i className="fa-solid fa-phone"></i>
                         <input
                             maxLength={11}
-                            value={data.telefone}
+                            value={data.telefone ?? ''}
                             onChange={e => setData("telefone", e.target.value)}
                         />
                     </div>
+                    {errors.telefone && (
+                        <span className="error-message">{errors.telefone}</span>
+                    )}
                 </div>
 
                 <div className="form-group">
@@ -74,6 +80,9 @@ export default function FormEditClinica({ clinica }: Props) {
                             onChange={e => setData("preco_min_consulta", parseFloat(e.target.value))}
                         />
                     </div>
+                    {errors.preco_min_consulta && (
+                        <span className="error-message">{errors.preco_min_consulta}</span>
+                    )}
                 </div>
 
                 <div className="form-group">
@@ -87,6 +96,9 @@ export default function FormEditClinica({ clinica }: Props) {
                             onChange={e => setData("preco_max_consulta", parseFloat(e.target.value))}
                         />
                     </div>
+                    {errors.preco_max_consulta && (
+                        <span className="error-message">{errors.preco_max_consulta}</span>
+                    )}
                 </div>
 
                 <div className="form-group full-width">
@@ -99,6 +111,9 @@ export default function FormEditClinica({ clinica }: Props) {
                             onChange={e => setData("email", e.target.value)}
                         />
                     </div>
+                    {errors.email && (
+                        <span className="error-message">{errors.email}</span>
+                    )}
                 </div>
             </div>
 
