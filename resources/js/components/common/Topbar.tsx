@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import { IPageProps } from "../../Types/PageProps";
+import { getFirstLetter } from "@/utils/format";
 
 export default function Topbar() {
     const { auth } = usePage<IPageProps>().props
@@ -41,12 +42,12 @@ export default function Topbar() {
                         <span className="user-name">{auth.user.name}</span>
                         <span className="user-role">{auth.user.role}</span>
                     </div>
-                    <img src="https://placehold.co/38x38" alt="Avatar" className="user-avatar" />
+                    <img src={`https://placehold.co/40x40?text=${getFirstLetter(auth.user.name)}`} alt="Avatar" className="user-avatar" />
                     <i className="fa-solid fa-chevron-down user-dropdown-icon"></i>
 
                     <div className="topbar-user-dropdown">
-                        <a href={route('meu-perfil')}><i className="fa-regular fa-user"></i> Meu Perfil</a>
-                        <a href={route('clinica.index')}><i className="fa-solid fa-hospital"></i> Dados da Clínica</a>
+                        <Link href={route('meu-perfil')}><i className="fa-regular fa-user"></i> Meu Perfil</Link>
+                        <Link href={route('clinica.index')}><i className="fa-solid fa-hospital"></i> Dados da Clínica</Link>
                         <hr />
                         <a href="/logout" className="logout"><i className="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
                     </div>

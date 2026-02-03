@@ -14,3 +14,7 @@ export function padLeft(
 ): string {
     return String(value).padStart(length, char);
 }
+
+export function getFirstLetter(value:string){
+    return value.charAt(0)
+}

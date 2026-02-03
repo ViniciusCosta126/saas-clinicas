@@ -1,5 +1,4 @@
 import { Link, useForm } from "@inertiajs/react";
-import React from "react";
 import { IClinica } from "../../Types/Clinica";
 import FormTemplate from "../common/FormTemplate";
 import { route } from 'ziggy-js';
