@@ -7,6 +7,7 @@ use App\Exceptions\EditarClinicaException;
 use App\Http\Requests\UpdateClinicaRequest;
 use App\Models\Clinica;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ClinicaController extends Controller
 {
@@ -17,8 +18,7 @@ class ClinicaController extends Controller
     }
     public function getConfiguracoesClinica()
     {
-        $clinica = auth()->user()->clinica;
-        return view('dashboard.clinica.update', compact('clinica'));
+        return Inertia::render('Clinica/Update');
     }
 
     public function update(int $clinica, UpdateClinicaRequest $request, EditarClinica $action)

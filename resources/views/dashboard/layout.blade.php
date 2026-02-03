@@ -6,7 +6,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
-    @vite(['resources/css/dashboard/dashboard.scss', 'resources/js/dashboard.js', 'resources/js/app.tsx'])
+    @routes
+    @vite(['resources/js/dashboard.js', 'resources/js/app.tsx'])
     @inertiaHead
 </head>
 

@@ -43,7 +43,7 @@ export default function Sidebar() {
                 </Link>
 
                 {can('config.manage') && (
-                    <Link href="/configuracoes">
+                    <Link href="/clinica/configuracoes-clinica">
                         <i className="fa-solid fa-gear"></i>
                         Configurações
                     </Link>
