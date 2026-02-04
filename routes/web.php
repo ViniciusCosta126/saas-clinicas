@@ -50,7 +50,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::get('/', [ProfissionaisController::class, 'index'])->middleware('permission:profissionais.manage')->name("profissionais.index");
         Route::post('/', [ProfissionaisController::class, 'store'])->middleware('permission:profissionais.manage')->name("profissionais.store");
         Route::delete('/{profissional}', [ProfissionaisController::class, 'delete'])->middleware('permission:profissionais.manage')->name("profissionais.delete");
-        Route::put("/update/{id}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage');
+        Route::put("/update/{id}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage')->name('profissionais.update');
         Route::get('/horarios-disponiveis', [ProfissionaisController::class, 'buscarHorarios'])->name('profissionais.horarios');
     });
 

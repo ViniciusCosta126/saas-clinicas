@@ -15,6 +15,7 @@ use App\Models\Profissional;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProfissionaisController extends Controller
 {
@@ -22,7 +23,8 @@ class ProfissionaisController extends Controller
     {
         $usuarios = User::all();
         $profissionais = Profissional::paginate(10);
-        return view('dashboard.profissionais.index', compact('profissionais', 'usuarios'));
+
+        return Inertia::render('Profissionais/Index',['profissionais'=>$profissionais,"usuarios"=>$usuarios]);
     }
 
     public function store(StoreProfissional $request,CriarProfissional $action)
