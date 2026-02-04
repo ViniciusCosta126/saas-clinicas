@@ -1,5 +1,5 @@
-import React from "react";
 import '../../../css/components/form-template.scss'
+
 type Props = {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   className?: string;

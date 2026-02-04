@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         $usuarios = User::paginate(25);
 
-        return Inertia::render('Usuarios/Index',["usuarios"=>$usuarios]);
+        return Inertia::render('Usuarios/Index', ["usuarios" => $usuarios]);
     }
     public function show()
     {
@@ -55,8 +55,13 @@ class UserController extends Controller
 
     public function delete(User $usuario)
     {
-        $usuario->delete();
-        return redirect('/usuarios');
+        try {
+            $usuario->delete();
+            return back()->with("success", "Usuario deletado com sucesso");
+        } catch (\Exception $th) {
+            return back()->with("error", $th->getMessage());
+        }
+
     }
 
     public function update(Request $request, $id)
@@ -78,10 +83,10 @@ class UserController extends Controller
                 'role' => $validated['role'],
             ]);
 
-            return redirect()->back()->with('success', 'Usuário atualizado com sucesso!');
+            return back()->with('success', 'Usuário atualizado com sucesso!');
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar o usuário.');
+            return back()->with('error', 'Ocorreu um erro ao atualizar o usuário.');
         }
     }
 }

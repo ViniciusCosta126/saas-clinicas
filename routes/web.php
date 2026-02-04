@@ -38,7 +38,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
 
     Route::prefix('usuarios')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware('permission:usuarios')->name('usuarios.index');
-        Route::put('/update/{id}', [UserController::class, 'update'])->middleware('permission:usuarios');
+        Route::put('/update/{id}', [UserController::class, 'update'])->middleware('permission:usuarios')->name('usuarios.update');
         Route::get('/meu-perfil', [UserController::class, 'show'])->name('meu-perfil');
         Route::put('/meu-perfil/update-perfil', [UserController::class, 'updateInfosPessoais'])->name('update-meu-perfil');
         Route::put('/meu-perfil', [UserController::class, 'updateSenhaUsuario'])->name('update-senha');
