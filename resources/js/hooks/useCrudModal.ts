@@ -6,8 +6,6 @@ export default function useCrudModal<T extends { id: number | string }>() {
 
     const [isFormModalOpen, setIsFormModalOpen] = useState(false);
     const [selectedData, setSelectedData] = useState<T | null>(null)
-
-
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [dataToDelete, setDataToDelete] = useState<T | null>(null);
     const [processingDelete, setProcessingDelete] = useState(false);

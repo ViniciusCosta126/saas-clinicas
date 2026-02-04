@@ -16,7 +16,7 @@ class UserInviteController extends Controller
         try {
             $userInvite = new UserInvites();
 
-            $userInvite->nome = $request->nome;
+            $userInvite->name = $request->name;
             $userInvite->email = $request->email;
             $userInvite->role = $request->role;
             $userInvite->expires_at = Carbon::now()->addDay();
@@ -26,7 +26,7 @@ class UserInviteController extends Controller
 
             Mail::to($userInvite->email)->send(
                 new ConviteClinica(
-                    $userInvite->nome,
+                    $userInvite->name,
                     auth()->user()->clinica->nome_clinica,
                     config('app.url') . "/criar-conta-convite/$userInvite->token",
                     $userInvite->expires_at->format('d/m/Y H:i')

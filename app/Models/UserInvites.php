@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $email
- * @property string $nome
+ * @property string $name
  * @property int $clinica_id
  * @property string $role
  * @property string $token
@@ -22,7 +22,7 @@ class UserInvites extends Model
 {
     protected $fillable = [
         'email',
-        'nome',
+        'name',
         'clinica_id',
         'role',
         'token',

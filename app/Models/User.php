@@ -40,7 +40,8 @@ class User extends Authenticatable
         'password',
         'telefone',
         'cpf',
-        'clinica_id'
+        'clinica_id',
+        'role'
     ];
 
     /**
