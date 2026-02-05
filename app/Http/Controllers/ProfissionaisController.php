@@ -21,7 +21,7 @@ class ProfissionaisController extends Controller
 {
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::select('email', 'cpf', 'name', 'created_at', 'role', 'id', 'clinica_id', 'telefone')->get();
         $profissionais = Profissional::paginate(10);
 
         return Inertia::render('Profissionais/Index',['profissionais'=>$profissionais,"usuarios"=>$usuarios]);

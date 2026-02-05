@@ -17,7 +17,7 @@ class CriarProfissional
     private function validaRegrasDeNegocio(array $dados)
     {
         if ($dados['clinica_id'] != auth()->user()->clinica_id) {
-            throw new CriarProfissionalException(message: "Você não tem permissão para criar este profissional.");
+            throw new CriarProfissionalException(message: "O usuário selecionado não pertence à sua clínica.");
         }
 
         $clinica = auth()->user()->clinica;

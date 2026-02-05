@@ -19,7 +19,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $usuarios = User::paginate(25);
+        $usuarios = User::select('email', 'cpf', 'name', 'created_at', 'role', 'id', 'clinica_id', 'telefone')->paginate(10);
 
         return Inertia::render('Usuarios/Index', ["usuarios" => $usuarios]);
     }
