@@ -15,14 +15,16 @@ use App\Models\Profissional;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProfissionaisController extends Controller
 {
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::select('email', 'cpf', 'name', 'created_at', 'role', 'id', 'clinica_id', 'telefone')->get();
         $profissionais = Profissional::paginate(10);
-        return view('dashboard.profissionais.index', compact('profissionais', 'usuarios'));
+
+        return Inertia::render('Profissionais/Index',['profissionais'=>$profissionais,"usuarios"=>$usuarios]);
     }
 
     public function store(StoreProfissional $request,CriarProfissional $action)

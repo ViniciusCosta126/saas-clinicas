@@ -40,7 +40,8 @@ class User extends Authenticatable
         'password',
         'telefone',
         'cpf',
-        'clinica_id'
+        'clinica_id',
+        'role'
     ];
 
     /**
@@ -89,5 +90,10 @@ class User extends Authenticatable
         $role = $this->role;
         $permissions = config("roles.$role", []);
         return in_array($permission, $permissions);
+    }
+
+    public function permissions():array{
+        $role = $this->role;
+        return config("roles.$role", []);
     }
 }

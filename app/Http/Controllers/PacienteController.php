@@ -10,13 +10,14 @@ use App\Http\Requests\StoreRequestPaciente;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class PacienteController extends Controller
 {
     public function index()
     {
-        $pacientes = Paciente::visiveis()->paginate(10);
-        return view('dashboard.pacientes.index', compact('pacientes'));
+        $pacientes = Paciente::visiveis()->with('clinica:id,nome_clinica')->paginate(10);
+        return Inertia::render('Pacientes/Index', ["pacientes" => $pacientes]);
     }
 
     public function store(StoreRequestPaciente $request, CriarPacienteAction $criarPaciente)

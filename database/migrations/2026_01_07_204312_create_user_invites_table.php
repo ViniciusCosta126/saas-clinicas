@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_invites', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->string('nome');
+            $table->string('name');
             $table->foreignId('clinica_id')->constrained()->cascadeOnDelete();
 
             $table->enum('role', [

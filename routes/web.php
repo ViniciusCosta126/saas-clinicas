@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfissionaisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInviteController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 
 //Rotas deslogadas
@@ -23,10 +24,11 @@ Route::post('/criar-conta-convite/{convite}', [HomeController::class, "postCriar
 
 //Rotas Logadas
 Route::middleware(['auth', 'has.clinica'])->group(function () {
-    Route::get('/logout', [HomeController::class, 'logout']);
+    Route::get('/logout', [HomeController::class, 'logout'])->name("logout");
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'index']);
     });
+
 
     Route::prefix('clinica')->group(function () {
         Route::get('/', [ClinicaController::class, "index"])->name('clinica.index');
@@ -36,9 +38,9 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
 
     Route::prefix('usuarios')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware('permission:usuarios')->name('usuarios.index');
-        Route::put('/update/{id}', [UserController::class, 'update'])->middleware('permission:usuarios');
+        Route::put('/update/{id}', [UserController::class, 'update'])->middleware('permission:usuarios')->name('usuarios.update');
         Route::get('/meu-perfil', [UserController::class, 'show'])->name('meu-perfil');
-        Route::post('/meu-perfil', [UserController::class, 'updateInfosPessoais'])->name('update-meu-perfil');
+        Route::put('/meu-perfil/update-perfil', [UserController::class, 'updateInfosPessoais'])->name('update-meu-perfil');
         Route::put('/meu-perfil', [UserController::class, 'updateSenhaUsuario'])->name('update-senha');
         Route::delete('/delete/{usuario}', [UserController::class, 'delete'])->middleware('permission:usuarios')->name('usuarios.delete');
         Route::post('/envio-convite-clinica', [UserInviteController::class, 'envioConviteClinica'])->middleware('permission:usuarios')->name('usuarios.invites.store');
@@ -48,7 +50,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::get('/', [ProfissionaisController::class, 'index'])->middleware('permission:profissionais.manage')->name("profissionais.index");
         Route::post('/', [ProfissionaisController::class, 'store'])->middleware('permission:profissionais.manage')->name("profissionais.store");
         Route::delete('/{profissional}', [ProfissionaisController::class, 'delete'])->middleware('permission:profissionais.manage')->name("profissionais.delete");
-        Route::put("/update/{id}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage');
+        Route::put("/update/{id}", [ProfissionaisController::class, "update"])->middleware('permission:profissionais.manage')->name('profissionais.update');
         Route::get('/horarios-disponiveis', [ProfissionaisController::class, 'buscarHorarios'])->name('profissionais.horarios');
     });
 
@@ -56,15 +58,15 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::get('/', [PacienteController::class, 'index'])->middleware('permission:pacientes.manage')->name('pacientes.index');
         Route::post('/', [PacienteController::class, 'store'])->name('pacientes.store');
         Route::delete('/delete/{paciente}', [PacienteController::class, 'delete'])->name('pacientes.delete');
-        Route::put('/update/{paciente}', [PacienteController::class, 'update']);
+        Route::put('/update/{paciente}', [PacienteController::class, 'update'])->name('pacientes.update');
     });
 
     Route::prefix('agendamento')->group(function (){
-        Route::get('/',[AgendamentoController::class,"index"])->name("agendamento.index");
-        Route::post('/',[AgendamentoController::class,'storeAgendamento'])->name("agendamento.store");
-        Route::put('/cancelar-agendamento/{id}',[AgendamentoController::class,'cancelarAgendamento']);
-        Route::put('/{id}/concluir',[AgendamentoController::class,'concluirAgendamento']);
-        Route::put('/{id}/falta',[AgendamentoController::class,"faltaAgendamento"]);
-        Route::put('/{id}/presenca',[AgendamentoController::class,"presencaAgendamento"]);
+        Route::get('/',[AgendamentoController::class,"index"])->name("agendamentos.index");
+        Route::post('/',[AgendamentoController::class,'storeAgendamento'])->name("agendamentos.store");
+        Route::put('/cancelar-agendamento/{id}',[AgendamentoController::class,'cancelarAgendamento'])->name('agendamentos.cancelar');
+        Route::put('/{id}/concluir',[AgendamentoController::class,'concluirAgendamento'])->name("agendamentos.concluir");
+        Route::put('/{id}/falta',[AgendamentoController::class,"faltaAgendamento"])->name("agendamentos.falta");
+        Route::put('/{id}/presenca',[AgendamentoController::class,"presencaAgendamento"])->name('agendamentos.presenca');
     });
 });

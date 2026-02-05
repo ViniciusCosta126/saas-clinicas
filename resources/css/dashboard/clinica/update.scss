@@ -93,12 +93,25 @@
     border-top: 1px solid #f1f5f9;
 
     .btn-cancel {
+        background: transparent; 
+        border: none;
         text-decoration: none;
         color: #64748b;
         font-weight: 600;
         padding: 12px 20px;
         border-radius: 10px;
-        &:hover { background: #f1f5f9; }
+        cursor: pointer;
+        transition: all 0.2s;
+        
+        &:hover { 
+            background: #f1f5f9; 
+            color: #475569;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     }
 
     .btn-submit {
@@ -112,6 +125,30 @@
         align-items: center;
         gap: 8px;
         cursor: pointer;
-        &:hover { background: #0ea5e9; }
+        transition: all 0.2s;
+
+        &:hover { 
+            background: #0ea5e9; 
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            background: #bae6fd;
+            cursor: not-allowed;
+        }
+
+        &.btn-danger {
+            background: #f43f5e;
+            &:hover { background: #e11d48; }
+        }
+
+        &.btn-success {
+            background: #10b981;
+            &:hover { background: #059669; }
+        }
     }
 }

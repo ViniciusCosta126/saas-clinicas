@@ -1,13 +1,5 @@
 
 window.addEventListener("DOMContentLoaded", () => {
-    document.querySelector('.user-menu').addEventListener('click', function (e) {
-        this.classList.toggle('active');
-        e.stopPropagation();
-    });
-    window.onclick = function () {
-        document.querySelector('.user-menu').classList.remove('active');
-    }
-
     window.openModal = function (id) {
         const modal = document.getElementById(id);
         modal.classList.remove('closing');

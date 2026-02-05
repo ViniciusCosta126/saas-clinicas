@@ -2,67 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\User\UpdateUserPasswordAction;
+use App\Actions\User\UpdateUserProfileAction;
+use App\Exceptions\UpdatePasswordException;
+use App\Exceptions\UpdateProfileException;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $usuarios = User::paginate(10);
-        return view('dashboard.usuarios.index', compact('usuarios'));
+        $usuarios = User::select('email', 'cpf', 'name', 'created_at', 'role', 'id', 'clinica_id', 'telefone')->paginate(10);
+
+        return Inertia::render('Usuarios/Index', ["usuarios" => $usuarios]);
     }
     public function show()
     {
-        return view('dashboard.meu-perfil.index');
+        return Inertia::render('Usuarios/Show');
     }
 
-    public function updateInfosPessoais(Request $request)
-    {
-        $user = User::where('id', Auth::user()->id)->first();
-
-        if ($user) {
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->telefone = $request->telefone;
-            $user->cpf = $request->cpf;
-            $user->save();
-
-            return to_route('meu-perfil');
+    public function updateInfosPessoais(
+        UpdateProfileRequest $request,
+        UpdateUserProfileAction $action
+    ) {
+        try {
+            $action->execute(auth()->user(), $request->validated());
+            return back()->with('success', "Perfil atualizado com sucesso!");
+        } catch (UpdateProfileException $e) {
+            return back()->with('error', $e->getMessage());
         }
-        return redirect('/dashboard');
     }
 
-    public function updateSenhaUsuario(Request $request)
-    {
-        $request->validate([
-            'current_password' => ['required', 'current_password'],
-            'password' => [
-                'required',
-                'confirmed',
-                Password::min(8)->mixedCase()->numbers()->symbols()
-            ],
-        ], [
-            'current_password.current_password' => 'A senha atual está incorreta.',
-            'password.confirmed' => 'As senhas não coincidem.',
-        ]);
+    public function updateSenhaUsuario(
+        UpdatePasswordRequest $request,
+        UpdateUserPasswordAction $action
+    ) {
+        try {
+            $action->execute(auth()->user(), $request->password);
+            return back()->with('success', 'Senha atualizada com sucesso!');
+        } catch (UpdatePasswordException $e) {
+            return back()->with('error', $e->getMessage());
+        }
 
-        $user = auth()->user();
-
-        $user->update([
-            'password' => Hash::make($request->password)
-        ]);
-
-        return back()->with('success', 'Senha atualizada com sucesso!');
     }
 
     public function delete(User $usuario)
     {
-        $usuario->delete();
-        return redirect('/usuarios');
+        try {
+            $usuario->delete();
+            return back()->with("success", "Usuario deletado com sucesso");
+        } catch (\Exception $th) {
+            return back()->with("error", $th->getMessage());
+        }
+
     }
 
     public function update(Request $request, $id)
@@ -78,16 +77,16 @@ class UserController extends Controller
 
             $usuario->update([
                 'name' => $validated['name'],
-                'telefone'=>$request->telefone,
-                'cpf'=>$request->cpf,
+                'telefone' => $request->telefone,
+                'cpf' => $request->cpf,
                 'email' => $validated['email'],
                 'role' => $validated['role'],
             ]);
 
-            return redirect()->back()->with('success', 'Usuário atualizado com sucesso!');
+            return back()->with('success', 'Usuário atualizado com sucesso!');
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar o usuário.');
+            return back()->with('error', 'Ocorreu um erro ao atualizar o usuário.');
         }
     }
 }

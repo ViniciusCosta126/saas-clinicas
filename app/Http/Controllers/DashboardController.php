@@ -7,6 +7,7 @@ use App\Models\Paciente;
 use App\Models\Profissional;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
@@ -15,6 +16,7 @@ class DashboardController extends Controller
         $profissionais = Profissional::all()->count();
         $pacientes = Paciente::visiveis()->get()->count();
         $agendamentos = Agendamento::doDia(Carbon::today()->format('Y-m-d'))->ativos()->count();
-        return view('dashboard.index', compact('profissionais', 'pacientes', 'agendamentos'));
+
+        return Inertia::render('Dashboard', ['profissionais' => $profissionais, 'pacientes' => $pacientes, "agendamentos" => $agendamentos]);
     }
 }
