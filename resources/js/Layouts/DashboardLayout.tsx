@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
 import '../../css/dashboard/dashboard.scss'
 import Sidebar from '../components/common/SideBar'
 import Topbar from '../components/common/Topbar'

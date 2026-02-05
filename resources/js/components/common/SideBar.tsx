@@ -1,5 +1,4 @@
 import { Link, usePage } from "@inertiajs/react";
-import React from "react";
 import { route } from "ziggy-js";
 import { IPageProps } from "../../Types/PageProps";
 
@@ -20,7 +19,7 @@ export default function Sidebar() {
                     Dashboard
                 </Link>
 
-                <Link href={route('agendamento.index')}>
+                <Link href={route('agendamentos.index')}>
                     <i className="fa-solid fa-calendar-days"></i>
                     Agenda
                 </Link>

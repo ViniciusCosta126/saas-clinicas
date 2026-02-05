@@ -62,11 +62,11 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
     });
 
     Route::prefix('agendamento')->group(function (){
-        Route::get('/',[AgendamentoController::class,"index"])->name("agendamento.index");
-        Route::post('/',[AgendamentoController::class,'storeAgendamento'])->name("agendamento.store");
-        Route::put('/cancelar-agendamento/{id}',[AgendamentoController::class,'cancelarAgendamento']);
-        Route::put('/{id}/concluir',[AgendamentoController::class,'concluirAgendamento']);
-        Route::put('/{id}/falta',[AgendamentoController::class,"faltaAgendamento"]);
-        Route::put('/{id}/presenca',[AgendamentoController::class,"presencaAgendamento"]);
+        Route::get('/',[AgendamentoController::class,"index"])->name("agendamentos.index");
+        Route::post('/',[AgendamentoController::class,'storeAgendamento'])->name("agendamentos.store");
+        Route::put('/cancelar-agendamento/{id}',[AgendamentoController::class,'cancelarAgendamento'])->name('agendamentos.cancelar');
+        Route::put('/{id}/concluir',[AgendamentoController::class,'concluirAgendamento'])->name("agendamentos.concluir");
+        Route::put('/{id}/falta',[AgendamentoController::class,"faltaAgendamento"])->name("agendamentos.falta");
+        Route::put('/{id}/presenca',[AgendamentoController::class,"presencaAgendamento"])->name('agendamentos.presenca');
     });
 });

@@ -14,29 +14,26 @@ use App\Exceptions\MarcaFaltaAgendamentoException;
 use App\Http\Requests\StoreAgendamentoRequest;
 use App\Models\Agendamento;
 use App\Models\Paciente;
+use App\Models\Profissional;
 use Illuminate\Http\Request;
 use App\Exceptions\CancelarAgendamentoException;
+use Inertia\Inertia;
 
 class AgendamentoController extends Controller
 {
     public function index(Request $request)
     {
-        $view = $request->query('view', 'diario'); // diario, semanal, mensal
         $dataSelecionada = $request->query('data', date('Y-m-d'));
-        $carbonData = \Carbon\Carbon::parse($dataSelecionada);
+        $view = $request->query('view', 'diario');
+        $data = \Carbon\Carbon::parse($dataSelecionada);
 
-        if ($view == 'semanal') {
-            $inicio = $carbonData->copy()->startOfWeek();
-            $fim = $carbonData->copy()->endOfWeek();
-        } elseif ($view == 'mensal') {
-            $inicio = $carbonData->copy()->startOfMonth();
-            $fim = $carbonData->copy()->endOfMonth();
+        if ($view === 'semanal') {
+            $inicio = $data->copy()->startOfWeek();
+            $fim = $data->copy()->endOfWeek();
         } else {
-            $inicio = $carbonData->copy()->startOfDay();
-            $fim = $carbonData->copy()->endOfDay();
+            $inicio = $data->copy()->startOfDay();
+            $fim = $data->copy()->endOfDay();
         }
-
-        $horarios = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', "18:00"];
 
         $agendamentos = Agendamento::where('profissional_id', auth()->id())
             ->ativos()
@@ -44,15 +41,14 @@ class AgendamentoController extends Controller
             ->with('paciente')
             ->get();
 
-        $pacientes = Paciente::visiveis()->get();
-
-        return view('dashboard.agendamentos.index', compact(
-            'horarios',
-            'agendamentos',
-            'dataSelecionada',
-            'pacientes',
-            'view'
-        ));
+        return Inertia::render('Agendamentos/Index', [
+            'agendamentos' => $agendamentos,
+            'pacientes' => Paciente::visiveis()->get(),
+            'profissionais'=>Profissional::all(),
+            'dataSelecionada' => $dataSelecionada,
+            'view' => $view,
+            'horarios' => ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
+        ]);
     }
 
     public function storeAgendamento(StoreAgendamentoRequest $request, CriarAgendamento $action)
@@ -61,6 +57,7 @@ class AgendamentoController extends Controller
             $action->execute($request->validated());
             return back()->with('success', 'Agendamento realizado com sucesso!');
         } catch (CriarAgendamentoException $e) {
+            \Log::error("Erro ao criar agendamento",['message'=>$e->getMessage()]);
             return back()->with('error', $e->getMessage());
         }
     }
