@@ -12,6 +12,8 @@
         "laravel/tinker": "^2.10.1",
         "mailersend/laravel-driver": "^2.12",
         "opcodesio/log-viewer": "^3.21",
+        "symfony/clock": "7.0",
+        "symfony/css-selector": "7.0",
         "tightenco/ziggy": "^2.6"
     },
     "require-dev": {
