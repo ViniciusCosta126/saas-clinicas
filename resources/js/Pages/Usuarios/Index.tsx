@@ -28,16 +28,16 @@ export default function Index({ usuarios }: IndexUsuariosProps) {
         'role'
     ])
 
-    const { 
-        isFormModalOpen, 
-        selectedData, 
-        openCreate, 
-        openEdit, 
-        closeFormModal, 
-        isDeleteModalOpen, 
-        dataToDelete, 
-        processingDelete, 
-        confirmDelete, 
+    const {
+        isFormModalOpen,
+        selectedData,
+        openCreate,
+        openEdit,
+        closeFormModal,
+        isDeleteModalOpen,
+        dataToDelete,
+        processingDelete,
+        confirmDelete,
         closeDeleteModal,
         executeDelete
     } = useCrudModal<IUser>()
@@ -61,14 +61,19 @@ export default function Index({ usuarios }: IndexUsuariosProps) {
                     onSearchChange={setSearch}
                 >
                     {filteredData.length === 0 ? (
-                        <SemResultados/>
+                        <SemResultados />
                     ) : (
                         filteredData.map(usuario => (
                             <tr key={usuario.id}>
                                 <td>{usuario.id}</td>
                                 <td>{usuario.name}</td>
                                 <td>{usuario.cpf}</td>
-                                <td>{usuario.email}</td>
+                                <td>
+                                    <div className="contact-info">
+                                        <small><i className="fa-regular fa-envelope"></i>{usuario.email}</small>
+                                        {usuario.telefone ? (<small><i className="fa-solid fa-phone"></i>{usuario.telefone}</small>) : ''}
+                                    </div>
+                                </td>
                                 <td>{usuario.role}</td>
                                 <td>{formatDateBr(usuario.created_at)}</td>
                                 <td className="text-center">
@@ -88,7 +93,7 @@ export default function Index({ usuarios }: IndexUsuariosProps) {
                 <Pagination links={usuarios.links} />
 
                 <UserModal user={selectedData} isOpen={isFormModalOpen} onClose={closeFormModal} />
-                
+
                 <Modal title="Confirmar ação" isOpen={isDeleteModalOpen}
                     onClose={closeDeleteModal}
                     footer={<>
@@ -101,7 +106,7 @@ export default function Index({ usuarios }: IndexUsuariosProps) {
                         </button>
                         <button
                             className="btn-submit"
-                            onClick={()=>executeDelete('usuarios.delete')}
+                            onClick={() => executeDelete('usuarios.delete')}
                             disabled={processingDelete}
                         >
                             {processingDelete ? (

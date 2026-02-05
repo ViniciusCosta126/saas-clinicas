@@ -109,7 +109,7 @@ export default function StoreAgendamentoModal({ isOpen, onClose, initialData, pa
                             step="3600"
                             value={data.horario_inicio}
                             onChange={e => {
-                                const val = e.target.value;
+                                const val = e.target.value; 
                                 if (!val) return setData('horario_inicio', '');
 
                                 const [hora] = val.split(':');
