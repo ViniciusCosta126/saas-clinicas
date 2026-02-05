@@ -26,7 +26,7 @@ export default function StoreAgendamentoModal({ isOpen, onClose, initialData, pa
         horario_fim: '',
         clinica_id: auth.clinica?.id,
         profissional_id: '',
-        status:'agendado'
+        status: 'agendado'
     });
 
     useEffect(() => {
@@ -106,16 +106,26 @@ export default function StoreAgendamentoModal({ isOpen, onClose, initialData, pa
                     <InputGroup label="Horário de Início" icon="fa-clock" error={errors.horario_inicio}>
                         <input
                             type="time"
+                            step="3600"
                             value={data.horario_inicio}
-                            onChange={e => setData('horario_inicio', e.target.value)}
+                            onChange={e => {
+                                const val = e.target.value;
+                                if (!val) return setData('horario_inicio', '');
+
+                                const [hora] = val.split(':');
+                                const horaCheia = `${hora}:00`;
+
+                                setData('horario_inicio', horaCheia);
+                            }}
                         />
                     </InputGroup>
 
                     <InputGroup label="Horário de Término" icon="fa-clock" error={errors.horario_fim}>
                         <input
-                        readOnly
+                            readOnly
                             type="time"
                             value={data.horario_fim}
+                            step={'1:00'}
                             onChange={e => setData('horario_fim', e.target.value)}
                         />
                     </InputGroup>
