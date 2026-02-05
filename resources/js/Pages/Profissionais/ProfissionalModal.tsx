@@ -4,7 +4,7 @@ import Modal from "@/components/common/ui/Modal/Modal";
 import { IProfissional } from "@/Types/Profissional";
 import { IUser } from "@/Types/User";
 import { useForm } from "@inertiajs/react";
-import { FormEvent, ReactEventHandler, useEffect, useState } from "react";
+import { FormEvent, useEffect } from "react";
 import { route } from "ziggy-js";
 
 interface ProfissionalProps {
@@ -109,7 +109,7 @@ export default function ProfissionalModal({ profissional, isOpen, onClose, usuar
                 <div className="form-actions">
                     <button type="submit" className="btn-submit" disabled={processing}>
                         <i className={`fa-solid ${profissional ? 'fa-check' : 'fa-paper-plane'}`}></i>
-                        {profissional ? ' Salvar Alterações' : ' Enviar Convite'}
+                        {profissional ? ' Salvar Alterações' : 'Criar profissional'}
                     </button>
                 </div>
             </FormTemplate>

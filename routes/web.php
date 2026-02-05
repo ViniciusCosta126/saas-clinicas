@@ -58,7 +58,7 @@ Route::middleware(['auth', 'has.clinica'])->group(function () {
         Route::get('/', [PacienteController::class, 'index'])->middleware('permission:pacientes.manage')->name('pacientes.index');
         Route::post('/', [PacienteController::class, 'store'])->name('pacientes.store');
         Route::delete('/delete/{paciente}', [PacienteController::class, 'delete'])->name('pacientes.delete');
-        Route::put('/update/{paciente}', [PacienteController::class, 'update']);
+        Route::put('/update/{paciente}', [PacienteController::class, 'update'])->name('pacientes.update');
     });
 
     Route::prefix('agendamento')->group(function (){

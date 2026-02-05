@@ -13,6 +13,7 @@ import Modal from "@/components/common/ui/Modal/Modal";
 import { route } from "ziggy-js";
 import { router } from "@inertiajs/react";
 import useCrudModal from "@/hooks/useCrudModal";
+import SemResultados from "@/components/common/ui/Sem-Resultados/SemResultados";
 
 
 interface IndexUsuariosProps {
@@ -60,11 +61,7 @@ export default function Index({ usuarios }: IndexUsuariosProps) {
                     onSearchChange={setSearch}
                 >
                     {filteredData.length === 0 ? (
-                        <tr>
-                            <td colSpan={7} className="text-center" style={{ padding: 40, color: '#94a3b8' }}>
-                                Nenhum resultado encontrado para o filtro.
-                            </td>
-                        </tr>
+                        <SemResultados/>
                     ) : (
                         filteredData.map(usuario => (
                             <tr key={usuario.id}>

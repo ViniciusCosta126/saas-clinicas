@@ -27,7 +27,7 @@ class Paciente extends Model
     ];
 
     protected $casts = [
-        'aniversario' => 'date',
+        'aniversario' => 'date:Y-m-d',
     ];
     
     public function clinica()

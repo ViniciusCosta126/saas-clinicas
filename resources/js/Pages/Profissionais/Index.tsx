@@ -9,6 +9,7 @@ import { IPagination } from "@/Types/Pagination";
 import { IProfissional } from "@/Types/Profissional";
 import { IUser } from "@/Types/User";
 import ProfissionalModal from "./ProfissionalModal";
+import SemResultados from "@/components/common/ui/Sem-Resultados/SemResultados";
 
 
 interface ProfissionalProps {
@@ -49,11 +50,7 @@ export default function Index({ usuarios, profissionais }: ProfissionalProps) {
                 >
                     {
                         filteredData.length === 0 ? (
-                            <tr>
-                                <td colSpan={7} className="text-center" style={{ padding: 40, color: '#94a3b8' }}>
-                                    Nenhum resultado encontrado para o filtro.
-                                </td>
-                            </tr>
+                            <SemResultados/>
                         ) : (
                             filteredData.map(profissional => (
                                 <tr key={profissional.id}>
