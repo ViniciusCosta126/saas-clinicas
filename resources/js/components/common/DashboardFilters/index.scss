@@ -1,0 +1,59 @@
+.dashboard-filters {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+
+  background: #ffffff;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b7280; 
+    }
+
+    select,
+    input[type='month'] {
+      height: 38px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb; 
+      background-color: #fff;
+      font-size: 14px;
+      color: #111827;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: #cbd5e1;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #4f46e5; 
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-filters {
+    flex-direction: column;
+    align-items: stretch;
+
+    .filter-group {
+      width: 100%;
+    }
+  }
+}

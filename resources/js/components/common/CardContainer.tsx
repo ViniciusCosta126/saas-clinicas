@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import '../../../css/components/card-container.scss'
 
 export default function CardContainer({ children }: PropsWithChildren) {

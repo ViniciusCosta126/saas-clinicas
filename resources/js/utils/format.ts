@@ -18,3 +18,17 @@ export function padLeft(
 export function getFirstLetter(value:string){
     return value.charAt(0)
 }
+
+export function formatToBRL(value: number | string): string {
+  const numberValue =
+    typeof value === 'string'
+      ? Number(value.replace(',', '.'))
+      : value
+
+  if (isNaN(numberValue)) return 'R$ 0,00'
+
+  return numberValue.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
+}

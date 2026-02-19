@@ -2,17 +2,25 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Auth;
+
+
 trait FiltraAgendamentosPorAcesso
 {
     public function scopeVisiveis($query)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
-        if ($user->role === 'admin') {
-            return $query->where('clinica_id', $user->clinica_id);
+        if (!$user) {
+            return $query;
         }
 
-        return $query->where('profissional_id', $user->profissional_id)
-            ->where('clinica_id', $user->clinica_id);
+        if ($user->role === 'admin') {
+            return $query->where('agendamentos.clinica_id', $user->clinica_id);
+        }
+
+        return $query
+            ->where('agendamentos.clinica_id', $user->clinica_id)
+            ->where('agendamentos.profissional_id', $user->profissional->id);
     }
 }

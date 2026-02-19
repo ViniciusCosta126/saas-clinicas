@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
-import React from 'react'
 
 const pages = import.meta.glob('./Pages/**/*.tsx')
 

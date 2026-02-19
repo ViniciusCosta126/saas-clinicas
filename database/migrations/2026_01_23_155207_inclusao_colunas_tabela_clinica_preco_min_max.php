@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('clinicas', function (Blueprint $table) {
-            $table->decimal('preco_min_consulta', 8, 2)->default(0.00);
+            $table->decimal('preco_min_consulta', 8, 2)->default(1.00);
             $table->decimal('preco_max_consulta', 8, 2)->default(1000.00);
         });
     }

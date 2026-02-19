@@ -6,6 +6,7 @@ use App\Enums\StatusAgendamento;
 use App\Traits\FiltraAgendamentosPorAcesso;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Models\Agendamento
@@ -55,9 +56,27 @@ class Agendamento extends Model
         return $query->whereDate('data', $data);
     }
 
+    public function scopeEntreDatas($query, $inicio, $fim)
+    {
+        return $query->whereBetween('data', [$inicio, $fim]);
+    }
+
     public function scopeAtivos($query)
     {
-        return $query->whereIn('status', ['agendado', 'confirmado', 'concluido', 'nao_compareceu']);
+        return $query->whereIn('status', [
+            StatusAgendamento::AGENDADO->value,
+            StatusAgendamento::CONFIRMADO->value,
+            StatusAgendamento::CONCLUIDO->value,
+            StatusAgendamento::NAO_COMPARECEU->value,
+        ]);
+    }
+
+    public function scopeCobranca($query)
+    {
+        return $query->whereIn('status', [
+            StatusAgendamento::CONCLUIDO->value,
+            StatusAgendamento::CONFIRMADO->value,
+        ]);
     }
 
     public function getDataFormatadaAttribute()
