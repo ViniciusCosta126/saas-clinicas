@@ -20,21 +20,7 @@ export default function DashboardFilters({ filters, onChange }: Props) {
           onChange={e => onChange({ mes: e.target.value })}
         />
       </div>
-      <div className="filter-group">
-        <label>Período</label>
-        <select
-          value={filters.periodo}
-          onChange={e =>
-            onChange({ periodo: e.target.value as PeriodoFiltro })
-          }
-        >
-          <option value="7">Últimos 7 dias</option>
-          <option value="30">Últimos 30 dias</option>
-          <option value="mes">Este mês</option>
-          <option value="ano">Este ano</option>
-        </select>
-      </div>
-
+      
       <div className="filter-group">
         <label>Comparar</label>
         <select

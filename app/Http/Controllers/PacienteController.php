@@ -23,8 +23,11 @@ class PacienteController extends Controller
     public function store(StoreRequestPaciente $request, CriarPacienteAction $criarPaciente)
     {
         try {
-            $criarPaciente->execute($request->validated(), Auth::user()->clinica_id, Auth::user()->profissional->id);
-            return back()->with('success', "Paciente Criado com sucesso");
+            if(Auth::user()->profissional){
+                $criarPaciente->execute($request->validated(), Auth::user()->clinica_id, Auth::user()->profissional->id);
+                return back()->with('success', "Paciente Criado com sucesso");
+            }
+            throw new CriarPacienteException("Este usuario não tem um profissional atrelado a ele");
         } catch (CriarPacienteException $e) {
             return back()->with("error", $e->getMessage());
         }

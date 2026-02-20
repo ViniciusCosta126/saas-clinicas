@@ -492,3 +492,38 @@ table {
     }
   }
 }
+
+.page-header-actions {
+  display: flex;
+  margin-bottom: 20px;
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #38bdf8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(56, 189, 248, 0.2);
+
+    i {
+      font-size: 0.85rem;
+    }
+
+    &:hover {
+      background-color: #0ea5e9;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px -2px rgba(56, 189, 248, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

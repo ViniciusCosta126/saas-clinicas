@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Profissional extends Model
 {
-    use BelongsToClinica,HasFactory;
+    use BelongsToClinica, HasFactory, SoftDeletes;
     protected $table = 'profissionais';
 
     protected $fillable = [
