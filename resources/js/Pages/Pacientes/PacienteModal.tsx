@@ -3,6 +3,7 @@ import InputGroup from "@/components/common/ui/Formulario/InputGroup";
 import Modal from "@/components/common/ui/Modal/Modal";
 import { IPaciente } from "@/Types/Paciente";
 import { IPageProps } from "@/Types/PageProps";
+import { IProfissional } from "@/Types/Profissional";
 import { useForm, usePage } from "@inertiajs/react";
 import { FormEvent, useEffect } from "react";
 import { route } from "ziggy-js";
@@ -12,10 +13,14 @@ interface PacienteProps {
     isOpen: boolean;
     onClose: () => void
     paciente?: IPaciente | null,
+    profissionais:IProfissional[]
 }
 
-export default function PacienteModal({ isOpen, onClose, paciente }: PacienteProps) {
+export default function PacienteModal({ isOpen, onClose, paciente,profissionais }: PacienteProps) {
     const { auth } = usePage<IPageProps>().props
+    const permissions: string[] = auth?.permissions ?? [];
+    const can = (permission: string) => permissions.includes(permission);
+
     const { put, post, setData, data, errors, processing } = useForm({
         nome: paciente?.nome,
         email: paciente?.email,
@@ -67,6 +72,19 @@ export default function PacienteModal({ isOpen, onClose, paciente }: PacientePro
         <Modal isOpen={isOpen} onClose={onClose} title={paciente ? "Editar paciente" : 'Adicione um novo paciente'}>
             <FormTemplate onSubmit={handleSubmit} className="paciente-form" >
                 <div className="form-grid">
+                    {!paciente && can("profissionais.manage") ?
+                        <InputGroup  label="Profissional" error={errors.nome} icon="fa-user" fullWidth>
+                            <select name="profissional_id" id="profissional_id">
+                                {
+                                    profissionais.map(item=>(
+                                        <option key={item.id} value={item.id}>{item.nome}</option>
+                                    ))
+                                }
+                            </select>
+                        </InputGroup>
+                        :
+                        ''
+                    }
                     <InputGroup label="Nome do paciente" error={errors.nome} icon="fa-user">
                         <input type="text" name="nome" id="nome" placeholder="Ex: João Silva" value={data.nome} onChange={(e) => setData('nome', e.target.value)} />
                     </InputGroup>

@@ -8,6 +8,7 @@ use App\Exceptions\CriarPacienteException;
 use App\Exceptions\DeletarPacienteException;
 use App\Http\Requests\StoreRequestPaciente;
 use App\Models\Paciente;
+use App\Models\Profissional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,13 +18,14 @@ class PacienteController extends Controller
     public function index()
     {
         $pacientes = Paciente::visiveis()->with('clinica:id,nome_clinica')->paginate(10);
-        return Inertia::render('Pacientes/Index', ["pacientes" => $pacientes]);
+        $profissionais = Profissional::all();
+        return Inertia::render('Pacientes/Index', ["pacientes" => $pacientes, "profissionais" => $profissionais]);
     }
 
     public function store(StoreRequestPaciente $request, CriarPacienteAction $criarPaciente)
     {
         try {
-            if(Auth::user()->profissional){
+            if (Auth::user()->profissional) {
                 $criarPaciente->execute($request->validated(), Auth::user()->clinica_id, Auth::user()->profissional->id);
                 return back()->with('success', "Paciente Criado com sucesso");
             }

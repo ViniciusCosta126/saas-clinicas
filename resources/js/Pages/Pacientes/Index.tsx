@@ -10,12 +10,14 @@ import { IPaciente } from "@/Types/Paciente";
 import { IPagination } from "@/Types/Pagination";
 import { formatDateBr } from "@/utils/format";
 import PacienteModal from "./PacienteModal";
+import { IProfissional } from "@/Types/Profissional";
 
 
 interface PacientesPageProps {
     pacientes: IPagination<IPaciente>
+    profissionais:IProfissional[];
 }
-export default function Index({ pacientes }: PacientesPageProps) {
+export default function Index({ pacientes,profissionais }: PacientesPageProps) {
     const { filteredData, search, setSearch } = useTableFilter(pacientes.data, ['nome', 'email', 'telefone'])
     const {
         closeDeleteModal,
@@ -76,7 +78,7 @@ export default function Index({ pacientes }: PacientesPageProps) {
                     }
                 </SmartTable>
 
-                <PacienteModal isOpen={isFormModalOpen} onClose={closeFormModal} paciente={selectedData} />
+                <PacienteModal profissionais={profissionais} isOpen={isFormModalOpen} onClose={closeFormModal} paciente={selectedData} />
                 <Modal title="Confirmar ação" isOpen={isDeleteModalOpen}
                     onClose={closeDeleteModal}
                     footer={<>
